@@ -1,0 +1,110 @@
+{
+  "fecha_utc": "2026-10-22T00:03:07.427883+00:00",
+  "modelo": "gemini-3.5-flash-lite",
+  "repeticiones_por_prompt": 3,
+  "max_reintentos_transitorios": 2,
+  "prompts": {
+    "clasificar_sentimiento": {
+      "exitos": 3,
+      "fallos": 0,
+      "fallos_servicio": 0,
+      "fallos_estructura_o_json": 0,
+      "intentos": 3,
+      "consistencia_porcentaje": 100.0,
+      "detalle": [
+        {
+          "intento": 1,
+          "estado": "exito",
+          "segundos": 2.1689,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        },
+        {
+          "intento": 2,
+          "estado": "exito",
+          "segundos": 1.5919,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        },
+        {
+          "intento": 3,
+          "estado": "exito",
+          "segundos": 1.4712,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        }
+      ]
+    },
+    "extraer_entidades": {
+      "exitos": 3,
+      "fallos": 0,
+      "fallos_servicio": 0,
+      "fallos_estructura_o_json": 0,
+      "intentos": 3,
+      "consistencia_porcentaje": 100.0,
+      "detalle": [
+        {
+          "intento": 1,
+          "estado": "exito",
+          "segundos": 1.6691,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        },
+        {
+          "intento": 2,
+          "estado": "exito",
+          "segundos": 1.058,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        },
+        {
+          "intento": 3,
+          "estado": "exito",
+          "segundos": 1.9261,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        }
+      ]
+    },
+    "resumen_corto": {
+      "exitos": 3,
+      "fallos": 0,
+      "fallos_servicio": 0,
+      "fallos_estructura_o_json": 0,
+      "intentos": 3,
+      "consistencia_porcentaje": 100.0,
+      "detalle": [
+        {
+          "intento": 1,
+          "estado": "exito",
+          "segundos": 1.8918,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        },
+        {
+          "intento": 2,
+          "estado": "exito",
+          "segundos": 1.718,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        },
+        {
+          "intento": 3,
+          "estado": "exito",
+          "segundos": 1.7281,
+          "error": null,
+          "categoria_fallo": null,
+          "reintentos_usados": 0
+        }
+      ]
+    }
+  }
+}
