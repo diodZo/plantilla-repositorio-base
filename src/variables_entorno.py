@@ -1,8 +1,11 @@
-from dotenv import load_dotenv #Importando la función load_dotenv del módulo dotenv
-import os #Importando el módulo os para acceder a las variables de entorno
+"""Comprueba que las variables de entorno estén configuradas, sin revelar secretos."""
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-# Cargar las variables de entorno desde el archivo .env
-load_dotenv()
+RAIZ = Path(__file__).resolve().parents[1]
+load_dotenv(RAIZ / '.env')
 
-print(os.getenv("API_KEY")) #Imprimiendo el valor de la variable de entorno API_KEY
-print(os.getenv("AI_MODEL")) #Imprimiendo el valor de la variable de entorno AI_MODEL
+if __name__ == '__main__':
+    print('API_KEY configurada:', bool(os.getenv('API_KEY')))
+    print('AI_MODEL:', os.getenv('AI_MODEL') or '(sin configurar)')
