@@ -1,0 +1,182 @@
+[
+  {
+    "consulta": "¿Qué es Python? Responde en una sola oración.",
+    "referencia": "Python es un lenguaje de programación interpretado de propósito general.",
+    "respuesta": "Python es un lenguaje de programación de alto nivel, interpretado y de propósito general, conocido por su sintaxis limpia, legible y su gran versatilidad en diversos campos como el desarrollo web, la ciencia de datos y la inteligencia artificial.",
+    "precision": 0.2564102564102564,
+    "cobertura": 1.0,
+    "f1": 0.4081632653061224,
+    "fecha_utc": "2026-11-02T21:44:16.345548+00:00"
+  },
+  {
+    "consulta": "¿Qué es una lista en Python? Responde en una sola oración.",
+    "referencia": "Una lista en Python es una colección ordenada y modificable de elementos.",
+    "respuesta": "Una lista en Python es una estructura de datos ordenada y mutable que permite almacenar una colección de elementos de cualquier tipo bajo un mismo nombre.",
+    "precision": 0.4230769230769231,
+    "cobertura": 0.9166666666666666,
+    "f1": 0.5789473684210527,
+    "fecha_utc": "2026-11-02T21:44:17.378978+00:00"
+  },
+  {
+    "consulta": "¿Qué es una tupla en Python? Responde en una sola oración.",
+    "referencia": "Una tupla es una colección ordenada e inmutable de elementos.",
+    "respuesta": "Una tupla en Python es una estructura de datos ordenada e inmutable que permite almacenar una colección de elementos, los cuales pueden ser de diferentes tipos.",
+    "precision": 0.38461538461538464,
+    "cobertura": 1.0,
+    "f1": 0.5555555555555556,
+    "fecha_utc": "2026-11-02T21:44:18.377044+00:00"
+  },
+  {
+    "consulta": "¿Qué es un diccionario de Python? Responde en una sola oración.",
+    "referencia": "Un diccionario guarda pares de clave y valor.",
+    "respuesta": "Un diccionario de Python es una estructura de datos mutable que almacena colecciones de elementos en forma de pares de \"clave-valor\".",
+    "precision": 0.19047619047619047,
+    "cobertura": 0.5,
+    "f1": 0.27586206896551724,
+    "fecha_utc": "2026-11-02T21:44:28.125598+00:00"
+  },
+  {
+    "consulta": "¿Qué es un set en Python? Responde en una sola oración.",
+    "referencia": "Un conjunto o set almacena elementos únicos sin un orden garantizado.",
+    "respuesta": "Un `set` en Python es una colección desordenada y mutable de elementos únicos que no permite duplicados.",
+    "precision": 0.23529411764705882,
+    "cobertura": 0.36363636363636365,
+    "f1": 0.2857142857142857,
+    "fecha_utc": "2026-11-02T21:44:29.856550+00:00"
+  },
+  {
+    "consulta": "¿Para qué se usa una función en Python? Responde en una sola oración.",
+    "referencia": "Una función encapsula instrucciones reutilizables y puede recibir argumentos y devolver resultados.",
+    "respuesta": "Una función en Python se usa para agrupar un bloque de código reutilizable que realiza una tarea específica, permitiendo organizar mejor el programa y evitar la repetición de código.",
+    "precision": 0.10344827586206896,
+    "cobertura": 0.25,
+    "f1": 0.14634146341463414,
+    "fecha_utc": "2026-11-02T21:44:31.845569+00:00"
+  },
+  {
+    "consulta": "¿Qué hace return en Python? Responde en una sola oración.",
+    "referencia": "La instrucción return termina una función y devuelve un valor al llamador.",
+    "respuesta": "En Python, `return` finaliza la ejecución de una función y devuelve un valor específico (o `None` por defecto) al lugar donde fue llamada.",
+    "precision": 0.391304347826087,
+    "cobertura": 0.75,
+    "f1": 0.5142857142857143,
+    "fecha_utc": "2026-11-02T21:44:32.780359+00:00"
+  },
+  {
+    "consulta": "¿Qué es un bucle for en Python? Responde en una sola oración.",
+    "referencia": "Un bucle for recorre elementos de un iterable.",
+    "respuesta": "Un bucle `for` en Python es una estructura de control que permite iterar o recorrer los elementos de cualquier objeto secuencia (como una lista, tupla o cadena) para ejecutar un bloque de código de forma repetida.",
+    "precision": 0.16666666666666666,
+    "cobertura": 0.75,
+    "f1": 0.27272727272727276,
+    "fecha_utc": "2026-11-02T21:44:33.868707+00:00"
+  },
+  {
+    "consulta": "¿Qué es un bucle while en Python? Responde en una sola oración.",
+    "referencia": "Un bucle while repite instrucciones mientras una condición sea verdadera.",
+    "respuesta": "Un bucle `while` en Python es una estructura de control que ejecuta repetidamente un bloque de código mientras una condición dada se mantenga verdadera.",
+    "precision": 0.2916666666666667,
+    "cobertura": 0.7,
+    "f1": 0.4117647058823529,
+    "fecha_utc": "2026-11-02T21:44:34.863463+00:00"
+  },
+  {
+    "consulta": "¿Para qué sirve if en Python? Responde en una sola oración.",
+    "referencia": "La sentencia if ejecuta código cuando una condición es verdadera.",
+    "respuesta": "El `if` en Python sirve para evaluar una condición lógica y ejecutar un bloque de código únicamente si dicha condición es verdadera.",
+    "precision": 0.2727272727272727,
+    "cobertura": 0.6,
+    "f1": 0.37499999999999994,
+    "fecha_utc": "2026-11-02T21:44:35.894577+00:00"
+  },
+  {
+    "consulta": "¿Qué hace len en Python? Responde en una sola oración.",
+    "referencia": "La función len devuelve la cantidad de elementos de un objeto compatible.",
+    "respuesta": "La función `len()` en Python sirve para devolver el número de elementos que contiene un objeto, como una cadena de texto, una lista o un diccionario.",
+    "precision": 0.3076923076923077,
+    "cobertura": 0.6666666666666666,
+    "f1": 0.42105263157894735,
+    "fecha_utc": "2026-11-02T21:44:36.986513+00:00"
+  },
+  {
+    "consulta": "¿Qué hace print en Python? Responde en una sola oración.",
+    "referencia": "La función print muestra valores en la salida estándar.",
+    "respuesta": "`print` en Python muestra en la pantalla el texto, los números u otros datos que se le pasen como argumento.",
+    "precision": 0.2,
+    "cobertura": 0.4444444444444444,
+    "f1": 0.2758620689655173,
+    "fecha_utc": "2026-11-02T21:44:37.984135+00:00"
+  },
+  {
+    "consulta": "¿Qué significa None en Python? Responde en una sola oración.",
+    "referencia": "None representa la ausencia de un valor.",
+    "respuesta": "En Python, `None` es un tipo de dato especial que representa la ausencia de valor, un estado nulo o la falta de un resultado explícito.",
+    "precision": 0.28,
+    "cobertura": 1.0,
+    "f1": 0.43750000000000006,
+    "fecha_utc": "2026-11-02T21:44:39.841655+00:00"
+  },
+  {
+    "consulta": "¿Qué es una excepción en Python? Responde en una sola oración.",
+    "referencia": "Una excepción es un evento que interrumpe el flujo normal del programa.",
+    "respuesta": "Una excepción en Python es un error que ocurre durante la ejecución de un programa y que interrumpe su flujo normal, el cual puede ser capturado y manejado para evitar que la aplicación colapse.",
+    "precision": 0.29411764705882354,
+    "cobertura": 0.8333333333333334,
+    "f1": 0.4347826086956522,
+    "fecha_utc": "2026-11-02T21:44:40.956267+00:00"
+  },
+  {
+    "consulta": "¿Para qué sirve try except en Python? Responde en una sola oración.",
+    "referencia": "Try except permite capturar y manejar excepciones durante la ejecución.",
+    "respuesta": "`try except` en Python sirve para capturar y manejar errores en tiempo de ejecución, evitando que el programa se detenga abruptamente.",
+    "precision": 0.2857142857142857,
+    "cobertura": 0.6,
+    "f1": 0.3870967741935483,
+    "fecha_utc": "2026-11-02T21:45:59.364725+00:00"
+  },
+  {
+    "consulta": "¿Qué es un módulo de Python? Responde en una sola oración.",
+    "referencia": "Un módulo es un archivo de Python con definiciones e instrucciones reutilizables.",
+    "respuesta": "Un módulo de Python es un archivo que contiene código ejecutable, como funciones y clases, diseñado para ser reutilizado en otros programas mediante la instrucción `import`.",
+    "precision": 0.2692307692307692,
+    "cobertura": 0.5833333333333334,
+    "f1": 0.3684210526315789,
+    "fecha_utc": "2026-11-02T21:46:00.318708+00:00"
+  },
+  {
+    "consulta": "¿Qué es pip en Python? Responde en una sola oración.",
+    "referencia": "Pip es una herramienta para instalar y administrar paquetes de Python.",
+    "respuesta": "`pip` es el sistema de gestión de paquetes estándar en Python que se utiliza para instalar, actualizar y desinstalar bibliotecas y dependencias de terceros que no vienen incluidas en la librería estándar.",
+    "precision": 0.25,
+    "cobertura": 0.7272727272727273,
+    "f1": 0.37209302325581395,
+    "fecha_utc": "2026-11-02T21:46:01.386098+00:00"
+  },
+  {
+    "consulta": "¿Para qué sirve un entorno virtual de Python? Responde en una sola oración.",
+    "referencia": "Un entorno virtual aísla las dependencias de un proyecto de Python.",
+    "respuesta": "Un entorno virtual de Python sirve para aislar las dependencias y bibliotecas de un proyecto específico, evitando conflictos entre las versiones de paquetes instaladas en el sistema global.",
+    "precision": 0.35714285714285715,
+    "cobertura": 0.9090909090909091,
+    "f1": 0.5128205128205129,
+    "fecha_utc": "2026-11-02T21:46:02.388853+00:00"
+  },
+  {
+    "consulta": "¿Qué es JSON? Responde en una sola oración.",
+    "referencia": "JSON es un formato textual de intercambio de datos estructurados.",
+    "respuesta": "JSON (JavaScript Object Notation) es un formato de texto ligero basado en pares clave-valor que se utiliza comúnmente para almacenar y transmitir datos estructurados a través de la web.",
+    "precision": 0.27586206896551724,
+    "cobertura": 0.8,
+    "f1": 0.4102564102564103,
+    "fecha_utc": "2026-11-02T21:46:03.492846+00:00"
+  },
+  {
+    "consulta": "¿Qué es una API? Responde en una sola oración.",
+    "referencia": "Una API define mecanismos para que aplicaciones se comuniquen e intercambien datos.",
+    "respuesta": "Una API es un conjunto de reglas y protocolos que permite que diferentes aplicaciones de software se comuniquen e intercambien datos entre sí.",
+    "precision": 0.391304347826087,
+    "cobertura": 0.75,
+    "f1": 0.5142857142857143,
+    "fecha_utc": "2026-11-02T21:46:04.603219+00:00"
+  }
+]

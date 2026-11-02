@@ -1,0 +1,102 @@
+[
+  {
+    "consulta": "¿Para qué se usa una función en Python? Responde en una sola oración.",
+    "referencia": "Una función encapsula instrucciones reutilizables y puede recibir argumentos y devolver resultados.",
+    "respuesta": "Una función en Python se usa para agrupar un bloque de código reutilizable que realiza una tarea específica, permitiendo organizar mejor el programa y evitar la repetición de código.",
+    "f1": 0.14634146341463414,
+    "correccion_factual": "sí",
+    "completitud": "parcialmente",
+    "contradiccion": "no",
+    "nota": "La explicación de agrupar código reutilizable es correcta, pero omite que una función puede recibir argumentos y devolver resultados. F1 muy bajo por paráfrasis y términos distintos."
+  },
+  {
+    "consulta": "¿Qué es un bucle for en Python? Responde en una sola oración.",
+    "referencia": "Un bucle for recorre elementos de un iterable.",
+    "respuesta": "Un bucle `for` en Python es una estructura de control que permite iterar o recorrer los elementos de cualquier objeto secuencia (como una lista, tupla o cadena) para ejecutar un bloque de código de forma repetida.",
+    "f1": 0.27272727272727276,
+    "correccion_factual": "parcialmente",
+    "completitud": "parcialmente",
+    "contradiccion": "no",
+    "nota": "Describe correctamente la iteración sobre secuencias, pero el texto «cualquier objeto secuencia» es más restrictivo que «iterable»: for también admite generadores y otros iterables. No cubre toda la generalidad de la referencia."
+  },
+  {
+    "consulta": "¿Qué es un diccionario de Python? Responde en una sola oración.",
+    "referencia": "Un diccionario guarda pares de clave y valor.",
+    "respuesta": "Un diccionario de Python es una estructura de datos mutable que almacena colecciones de elementos en forma de pares de \"clave-valor\".",
+    "f1": 0.27586206896551724,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "Describe una estructura mutable con pares clave-valor: el contenido esencial coincide. La diferencia entre «clave-valor» y «clave y valor» reduce la coincidencia léxica."
+  },
+  {
+    "consulta": "¿Qué hace print en Python? Responde en una sola oración.",
+    "referencia": "La función print muestra valores en la salida estándar.",
+    "respuesta": "`print` en Python muestra en la pantalla el texto, los números u otros datos que se le pasen como argumento.",
+    "f1": 0.2758620689655173,
+    "correccion_factual": "parcialmente",
+    "completitud": "parcialmente",
+    "contradiccion": "no",
+    "nota": "Identifica correctamente que print muestra datos, pero especifica «en la pantalla», mientras la referencia habla de salida estándar, que puede redirigirse. La precisión técnica es menor que la de la referencia."
+  },
+  {
+    "consulta": "¿Qué es un set en Python? Responde en una sola oración.",
+    "referencia": "Un conjunto o set almacena elementos únicos sin un orden garantizado.",
+    "respuesta": "Un `set` en Python es una colección desordenada y mutable de elementos únicos que no permite duplicados.",
+    "f1": 0.2857142857142857,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "Coincide en elementos únicos y ausencia de orden garantizado; mencionar mutabilidad y que no admite duplicados aporta detalle compatible. El F1 bajo no indica error conceptual."
+  },
+  {
+    "consulta": "¿Para qué sirve un entorno virtual de Python? Responde en una sola oración.",
+    "referencia": "Un entorno virtual aísla las dependencias de un proyecto de Python.",
+    "respuesta": "Un entorno virtual de Python sirve para aislar las dependencias y bibliotecas de un proyecto específico, evitando conflictos entre las versiones de paquetes instaladas en el sistema global.",
+    "f1": 0.5128205128205129,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "Explica que aísla dependencias por proyecto y previene conflictos entre versiones instaladas. Es compatible con la referencia y añade contexto útil."
+  },
+  {
+    "consulta": "¿Qué hace return en Python? Responde en una sola oración.",
+    "referencia": "La instrucción return termina una función y devuelve un valor al llamador.",
+    "respuesta": "En Python, `return` finaliza la ejecución de una función y devuelve un valor específico (o `None` por defecto) al lugar donde fue llamada.",
+    "f1": 0.5142857142857143,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "Indica que return termina la ejecución de la función y entrega un resultado al llamador. Aclara correctamente que return sin expresión devuelve None; no aparece contradicción."
+  },
+  {
+    "consulta": "¿Qué es una API? Responde en una sola oración.",
+    "referencia": "Una API define mecanismos para que aplicaciones se comuniquen e intercambien datos.",
+    "respuesta": "Una API es un conjunto de reglas y protocolos que permite que diferentes aplicaciones de software se comuniquen e intercambien datos entre sí.",
+    "f1": 0.5142857142857143,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "Describe reglas y protocolos para comunicación e intercambio de datos entre aplicaciones; equivale a la referencia aunque emplea vocabulario adicional."
+  },
+  {
+    "consulta": "¿Qué es una tupla en Python? Responde en una sola oración.",
+    "referencia": "Una tupla es una colección ordenada e inmutable de elementos.",
+    "respuesta": "Una tupla en Python es una estructura de datos ordenada e inmutable que permite almacenar una colección de elementos, los cuales pueden ser de diferentes tipos.",
+    "f1": 0.5555555555555556,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "Conserva las propiedades fundamentales de orden e inmutabilidad y añade que los elementos pueden ser de tipos diferentes; es compatible con la referencia."
+  },
+  {
+    "consulta": "¿Qué es una lista en Python? Responde en una sola oración.",
+    "referencia": "Una lista en Python es una colección ordenada y modificable de elementos.",
+    "respuesta": "Una lista en Python es una estructura de datos ordenada y mutable que permite almacenar una colección de elementos de cualquier tipo bajo un mismo nombre.",
+    "f1": 0.5789473684210527,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradiccion": "no",
+    "nota": "«Mutable» equivale a «modificable»; mantiene que la colección es ordenada y describe su capacidad para almacenar elementos. El F1 no reconoce plenamente los sinónimos."
+  }
+]
