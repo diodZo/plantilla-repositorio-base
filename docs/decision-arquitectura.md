@@ -28,13 +28,13 @@ En `src/consumir_gemini.py`, el flujo verificado es:
 4. `extraer_texto(datos)` recupera `candidates[0].content.parts[0].text`.
 5. La respuesta se imprime. El bloque principal captura `ValueError` y `RuntimeError`.
 
-Los errores de conexión y timeout, HTTP, JSON inválido y campos ausentes se manejan en las funciones correspondientes. **El módulo principal todavía no incorpora el cálculo del costo ni muestra `usageMetadata`**. Estas mediciones se realizan en el script independiente `utils/comparar_modelos_gemini.py`. Por tanto, el diagrama del Bloque 8 y este ADR documentan el flujo existente; no deben interpretarse como evidencia de una funcionalidad de costos integrada en la miniaplicación principal.
+Los errores de conexión y timeout, HTTP, JSON inválido y campos ausentes se manejan en las funciones correspondientes. **El módulo principal todavía no incorpora el cálculo del costo ni muestra `usageMetadata`**. Estas mediciones se realizan en el script independiente `src/utils/comparar_modelos_gemini.py`. Por tanto, el diagrama del Bloque 8 y este ADR documentan el flujo existente; no deben interpretarse como evidencia de una funcionalidad de costos integrada en la miniaplicación principal.
 
 ## 3. Comparación de candidatos
 
 ### Procedimiento y fuente de datos
 
-Se utilizó `utils/comparar_modelos_gemini.py`: **5 rondas × 3 preguntas × 2 modelos = 30 intentos**. Se formularon las mismas tres preguntas a ambos modelos: una operación aritmética sencilla, la capital de Escocia y una explicación de API REST. La duración corresponde al tiempo observado de la solicitud HTTP desde el cliente. Las métricas de latencia, tokens y costo solo se computan sobre **solicitudes exitosas**; los fallos se contabilizan aparte para no sesgar el promedio con valores vacíos.
+Se utilizó `src/utils/comparar_modelos_gemini.py`: **5 rondas × 3 preguntas × 2 modelos = 30 intentos**. Se formularon las mismas tres preguntas a ambos modelos: una operación aritmética sencilla, la capital de Escocia y una explicación de API REST. La duración corresponde al tiempo observado de la solicitud HTTP desde el cliente. Las métricas de latencia, tokens y costo solo se computan sobre **solicitudes exitosas**; los fallos se contabilizan aparte para no sesgar el promedio con valores vacíos.
 
 | Métrica | `gemini-3.5-flash-lite` | `gemini-3.8-flash` |
 |---|---:|---:|
