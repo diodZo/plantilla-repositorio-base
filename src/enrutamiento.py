@@ -1,20 +1,31 @@
-"""Bloque 19: enrutamiento condicional de mensajes de soporte con LangChain.
+"""Bloques 19 y 20: enrutamiento condicional y recuperación ante fallos.
 
-Ejecución desde la raíz del repositorio: python -m src.enrutamiento
+Ejecutar desde la raíz del repositorio: python -m src.enrutamiento
 """
 
+import logging
 import os
 
 from dotenv import load_dotenv
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import RunnableBranch, RunnablePassthrough
+from langchain_core.runnables import RunnableBranch, RunnableLambda, RunnablePassthrough
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+logger = logging.getLogger(__name__)
 
 PLANTILLA_CLASIFICACION = PromptTemplate.from_template(
     "Clasifica este mensaje de soporte en una sola palabra: "
     "pregunta, queja o sugerencia. Responde solo con esa palabra.\n\n{mensaje}"
+)
+
+RESPUESTA_QUEJA_RESPALDO = (
+    "Gracias por contarnos el problema. No pudimos analizar tu queja "
+    "en este momento. Guarda los detalles del error e inténtalo más tarde "
+    "o contacta al equipo de soporte disponible."
+)
+RESPUESTA_GENERAL_RESPALDO = (
+    "No pudimos procesar tu mensaje en este momento. Inténtalo de nuevo más tarde."
 )
 
 
@@ -78,19 +89,35 @@ def construir_cadena_con_enrutamiento(
     return RunnablePassthrough.assign(categoria=paso_clasificacion) | bifurcacion
 
 
+def construir_cadena_queja_segura(cadena_queja):
+    """Respaldo del paso de queja, inyectable para pruebas sin API."""
+    respuesta_generica = RunnableLambda(lambda entrada: RESPUESTA_QUEJA_RESPALDO)
+    return cadena_queja.with_fallbacks([respuesta_generica])
+
+
 def construir_cadena(modelo):
-    """Montar el flujo con inyección del modelo, sin realizar llamadas a la API."""
+    """Montar el flujo seguro sin ejecutar llamadas a la API."""
     pregunta, queja, sugerencia = construir_rutas(modelo)
     return construir_cadena_con_enrutamiento(
         paso_clasificacion=construir_paso_clasificacion(modelo),
-        cadena_queja=queja,
+        cadena_queja=construir_cadena_queja_segura(queja),
         cadena_sugerencia=sugerencia,
         cadena_pregunta=pregunta,
     )
 
 
+def procesar_mensaje_seguro(cadena, mensaje):
+    """Protección general para fallos no recuperados en clasificación o rutas."""
+    try:
+        return cadena.invoke({"mensaje": mensaje})
+    except Exception:
+        logger.exception("Error al procesar mensaje con la cadena orquestada")
+        return RESPUESTA_GENERAL_RESPALDO
+
+
 def main():
     load_dotenv()
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
     # Compatibilidad con API_KEY del cliente previo y nombres del conector.
     clave = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv("API_KEY")
     if not clave:
@@ -107,7 +134,7 @@ def main():
     )
     for numero, mensaje in enumerate(ejemplos, start=1):
         print(f"\n--- CASO {numero} ---\nMensaje: {mensaje}")
-        print(cadena.invoke({"mensaje": mensaje}))
+        print(procesar_mensaje_seguro(cadena, mensaje))
 
 
 if __name__ == "__main__":
