@@ -1,0 +1,32 @@
+{
+  "descripcion": "Consultas de evaluación de recuperación (Bloque 26). 'evidencia': subcadenas (sin distinguir tildes ni mayúsculas) que debe contener un chunk de una fuente esperada para considerarse acierto estricto. Lista vacía de fuentes = fuera del corpus.",
+  "consultas": [
+    {"id": "reintentos-A", "tema": "reintentos",
+     "pregunta": "¿Qué hace el programa cuando el servidor de Google tarda en contestar o devuelve demasiadas peticiones?",
+     "fuentes": ["README.md", "docs/ensayo-bloque13.md"], "evidencia": ["backoff", "429"]},
+    {"id": "reintentos-2", "tema": "reintentos",
+     "pregunta": "¿Cómo se vuelven a intentar las solicitudes que fallan?",
+     "fuentes": ["README.md", "docs/ensayo-bloque13.md"], "evidencia": ["backoff", "reintento"]},
+    {"id": "costos-B2", "tema": "costos",
+     "pregunta": "¿El costo que calcula el cliente modular corresponde a la tarifa oficial de Gemini?",
+     "fuentes": ["README.md", "docs/ensayo-bloque13.md", "docs/decision-arquitectura.md"], "evidencia": ["tarifa", "referencial", "didactico"]},
+    {"id": "costos-2", "tema": "costos",
+     "pregunta": "¿Cómo se estima el gasto en dinero de cada consulta al modelo?",
+     "fuentes": ["README.md", "docs/ensayo-bloque13.md", "docs/decision-arquitectura.md"], "evidencia": ["por tokens", "por 1000 tokens", "costo referencial", "costo estimado"]},
+    {"id": "supervision-B", "tema": "supervision",
+     "pregunta": "¿Qué herramienta del agente necesita que una persona la autorice antes de ejecutarse?",
+     "fuentes": ["docs/limites_autonomia_agente.md", "docs/README-bloque23.md"], "evidencia": ["decision humana explicita", "aprobador inyectable"]},
+    {"id": "supervision-2", "tema": "supervision",
+     "pregunta": "¿Qué agente o herramienta requiere aprobación humana?",
+     "fuentes": ["docs/limites_autonomia_agente.md", "docs/README-bloque23.md"], "evidencia": ["decision humana explicita", "aprobador inyectable"]},
+    {"id": "supervision-3", "tema": "supervision",
+     "pregunta": "¿Qué ocurre si nadie confirma la operación de reembolso a tiempo?",
+     "fuentes": ["docs/limites_autonomia_agente.md", "docs/README-bloque23.md"], "evidencia": ["agotamiento del tiempo", "vence el plazo"]},
+    {"id": "fuera-C", "tema": "fuera_del_corpus",
+     "pregunta": "¿Cuál es el horario de atención de la biblioteca municipal de Valparaíso?",
+     "fuentes": [], "evidencia": []},
+    {"id": "fuera-2", "tema": "fuera_del_corpus",
+     "pregunta": "¿Cuál es la receta tradicional del pisco sour?",
+     "fuentes": [], "evidencia": []}
+  ]
+}

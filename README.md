@@ -140,3 +140,44 @@ Los dos últimos comandos no deberían mostrar ninguna entrada para el archivo `
 ## Documentación de la decisión
 
 Ver [diagrama de arquitectura](docs/diagrama_arquitectura.png), [registro de decisión de arquitectura](docs/decision-arquitectura.md) y [resultados comparativos](docs/comparacion_modelos.csv). El cálculo de costos del benchmark está documentado como medición independiente; no forma parte del flujo principal de `src/consumir_gemini.py`. El cliente modular `src/cliente.py` incorpora un costo **referencial** por tokens, con una tarifa ilustrativa que no corresponde al precio oficial de Gemini.
+
+## RAG sobre la documentación del proyecto (Bloques 24–26)
+
+Sistema de recuperación aumentada (RAG) que responde preguntas sobre la documentación del repositorio y cita sus fuentes. El código está en `src/rag/`; el detalle de cada bloque, en [README-bloque24.md](docs/README-bloque24.md), [README-bloque25.md](docs/README-bloque25.md), [README-bloque26.md](docs/README-bloque26.md) y [plan-rag-bloques24-26.md](docs/plan-rag-bloques24-26.md).
+
+### Arquitectura
+
+```text
+corpus.py (8 documentos reales, metadata de origen)
+  → chunking.py (recursivo o por secciones Markdown, IDs estables)
+  → embeddings.py (models/gemini-embedding-001, reintentos solo para fallos transitorios)
+  → indexador.py (Chroma persistente, indexación incremental sin duplicados)
+  → recuperador.py / hibrido.py (vectorial; opcional BM25 + RRF)
+  → expansion.py (cada chunk se reemplaza por su sección: small-to-big)
+  → prompts.py (contexto numerado como datos, citas [n], abstención si falta información)
+  → generador.py (Gemini, AI_MODEL de .env)
+```
+
+### Indexación y persistencia
+
+Los índices se guardan en `vectorstore/` y `vectorstore_ejemplo/`, excluidos de Git. Las colecciones son `corpus_proyecto_bloque24` (recursivo 200/30), `corpus_proyecto_bloque24_md` (por secciones Markdown, 200/30, predeterminada para consultas) y `politicas_tienda_bloque25`. Volver a indexar solo calcula embeddings de los chunks nuevos. Ninguna colección se borra sin `--reconstruir`, y los chunks obsoletos solo se eliminan con `--podar-huerfanos`.
+
+```powershell
+python -m src.indexar_corpus --bloque 24 --estrategia markdown --coleccion corpus_proyecto_bloque24_md
+python -m src.indexar_corpus --bloque 24 --plan --estrategia markdown --coleccion corpus_proyecto_bloque24_md
+python -m src.indexar_corpus --bloque 24 --solo-verificar
+python -m src.indexar_corpus --bloque 25
+```
+
+### Recuperación semántica y expansión
+
+De forma predeterminada, `src/recuperar_corpus.py` usa el índice por secciones, búsqueda vectorial (distancia coseno; no es un porcentaje) y expansión de cada chunk a su sección. `--indice base --sin-expandir` reproduce el comportamiento original del Bloque 26; `--modo hibrido` agrega BM25 con Reciprocal Rank Fusion; `--max-contexto` limita el contexto sin recortar unidades.
+
+```powershell
+python -m src.recuperar_corpus "¿Qué herramienta requiere aprobación humana?"
+python -m src.recuperar_corpus --escenarios
+python -m src.recuperar_corpus "..." --sin-generar --k 5 --max-contexto 2500
+python -m src.evaluar_recuperacion --indice markdown --expandir --conjunto validacion
+```
+
+Las consultas no recalculan embeddings de documentos: solo una `embed_query` por pregunta, y una generación si no se usa `--sin-generar`. Las pruebas de `tests/test_rag_*.py` usan embeddings simulados y no consumen cuota.

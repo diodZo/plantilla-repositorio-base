@@ -1,0 +1,28 @@
+{
+  "descripcion": "Conjunto de VALIDACIÓN (Bloque 26, consolidación). Redactado después del conjunto de desarrollo y antes de ejecutarlo, sin consultar resultados de recuperación ni modificar el sistema a partir de él. Cubre temas que el conjunto de desarrollo no incluye. Lo redactó la misma persona que el sistema: no es una evaluación independiente en sentido estricto. 'evidencia': subcadenas (sin distinguir tildes ni mayúsculas) que debe contener un chunk de una fuente esperada.",
+  "consultas": [
+    {"id": "val-memoria", "tema": "memoria",
+     "pregunta": "¿Cómo evita el asistente que se mezclen las conversaciones de dos usuarios distintos?",
+     "fuentes": ["docs/README-bloque22.md"], "evidencia": ["session_id", "AlmacenSesiones"]},
+    {"id": "val-fallback", "tema": "errores",
+     "pregunta": "¿Qué recibe la persona si falla la parte del flujo que atiende reclamos?",
+     "fuentes": ["docs/README-bloque20.md"], "evidencia": ["with_fallbacks", "respuesta fija"]},
+    {"id": "val-trazas", "tema": "supervision",
+     "pregunta": "¿Dónde quedan guardadas las acciones que realizó el agente en cada consulta?",
+     "fuentes": ["docs/README-bloque23.md", "docs/limites_autonomia_agente.md"], "evidencia": ["trazas_agente_bloque23.jsonl"]},
+    {"id": "val-modelo", "tema": "arquitectura",
+     "pregunta": "¿Por qué se escogió ese modelo de Gemini para la miniaplicación?",
+     "fuentes": ["docs/decision-arquitectura.md"], "evidencia": ["menor latencia"]},
+    {"id": "val-ejecucion", "tema": "agentes",
+     "pregunta": "¿Las herramientas del asistente de desarrollo pueden ejecutar comandos en mi computador?",
+     "fuentes": ["docs/README-bloque21.md", "docs/README-bloque22.md", "docs/limites_autonomia_agente.md"],
+     "evidencia": ["no ejecutan comandos", "no ejecuta comandos", "sin ejecutarlos"]},
+    {"id": "val-repeticiones", "tema": "supervision",
+     "pregunta": "¿Cómo se detecta que el agente usó la misma herramienta varias veces seguidas?",
+     "fuentes": ["docs/README-bloque23.md", "docs/limites_autonomia_agente.md"], "evidencia": ["detectar_repeticiones"]},
+    {"id": "val-fuera-clima", "tema": "fuera_del_corpus",
+     "pregunta": "¿Qué temperatura máxima se pronostica para Santiago mañana?", "fuentes": [], "evidencia": []},
+    {"id": "val-fuera-k8s", "tema": "fuera_del_corpus",
+     "pregunta": "¿Cómo se configura un clúster de Kubernetes con Helm?", "fuentes": [], "evidencia": []}
+  ]
+}

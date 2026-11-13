@@ -1,0 +1,871 @@
+{
+  "coleccion": "corpus_proyecto_bloque24_md",
+  "chunk_size": 200,
+  "chunk_overlap": 30,
+  "estrategia": "markdown",
+  "conjunto": "validacion",
+  "candidatos": 20,
+  "k_rrf": 60,
+  "expandir": true,
+  "resumen": {
+    "consultas_con_fuente": 6,
+    "metodos": {
+      "vectorial": {
+        "hit@3_evidencia": 1.0,
+        "hit@3_fuente": 1.0,
+        "hit@5_evidencia": 1.0,
+        "hit@5_fuente": 1.0
+      },
+      "lexico": {
+        "hit@3_evidencia": 0.833,
+        "hit@3_fuente": 1.0,
+        "hit@5_evidencia": 1.0,
+        "hit@5_fuente": 1.0
+      },
+      "hibrido": {
+        "hit@3_evidencia": 1.0,
+        "hit@3_fuente": 1.0,
+        "hit@5_evidencia": 1.0,
+        "hit@5_fuente": 1.0
+      }
+    }
+  },
+  "consultas": [
+    {
+      "id": "val-memoria",
+      "pregunta": "¿Cómo evita el asistente que se mezclen las conversaciones de dos usuarios distintos?",
+      "primer_acierto_evidencia": {
+        "vectorial": 1,
+        "lexico": 4,
+        "hibrido": 2
+      },
+      "primer_acierto_fuente": {
+        "vectorial": 1,
+        "lexico": 3,
+        "hibrido": 2
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-readme-bloque22-md:0032:238108bca8",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.2794
+          },
+          {
+            "id": "docs-readme-bloque22-md:0017:c72e0b4c9f",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.3118
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0011:ef7ca3baac",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "distancia": 0.3189
+          },
+          {
+            "id": "docs-readme-bloque22-md:0053:e77271558c",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.3205
+          },
+          {
+            "id": "docs-readme-bloque22-md:0002:b2192e7cad",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.33
+          }
+        ],
+        "lexico": [
+          {
+            "id": "docs-readme-bloque21-md:0003:3c4bf8ff1b",
+            "fuente": "docs/README-bloque21.md",
+            "bm25": 6.137
+          },
+          {
+            "id": "docs-readme-bloque23-md:0005:a3602f8f35",
+            "fuente": "docs/README-bloque23.md",
+            "bm25": 4.815
+          },
+          {
+            "id": "docs-readme-bloque22-md:0043:3af2fa0bd4",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 4.783
+          },
+          {
+            "id": "docs-readme-bloque22-md:0051:570e607a6e",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 4.668
+          },
+          {
+            "id": "docs-readme-bloque20-md:0011:8b7e09f7b3",
+            "fuente": "docs/README-bloque20.md",
+            "bm25": 4.565
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-readme-bloque23-md:0005:a3602f8f35",
+            "fuente": "docs/README-bloque23.md",
+            "rrf": 0.03105,
+            "rango_vectorial": 7,
+            "rango_lexico": 2
+          },
+          {
+            "id": "docs-readme-bloque22-md:0020:3fe7d52ffd",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.02885,
+            "rango_vectorial": 6,
+            "rango_lexico": 13
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0011:ef7ca3baac",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "rrf": 0.02853,
+            "rango_vectorial": 3,
+            "rango_lexico": 19
+          },
+          {
+            "id": "docs-readme-bloque22-md:0043:3af2fa0bd4",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.02837,
+            "rango_vectorial": 20,
+            "rango_lexico": 3
+          },
+          {
+            "id": "docs-readme-bloque22-md:0036:8f058e35f2",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.02801,
+            "rango_vectorial": 9,
+            "rango_lexico": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-fallback",
+      "pregunta": "¿Qué recibe la persona si falla la parte del flujo que atiende reclamos?",
+      "primer_acierto_evidencia": {
+        "vectorial": 1,
+        "lexico": 2,
+        "hibrido": 1
+      },
+      "primer_acierto_fuente": {
+        "vectorial": 1,
+        "lexico": 2,
+        "hibrido": 1
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-readme-bloque20-md:0001:d992771439",
+            "fuente": "docs/README-bloque20.md",
+            "distancia": 0.307
+          },
+          {
+            "id": "docs-readme-bloque20-md:0008:0950381fed",
+            "fuente": "docs/README-bloque20.md",
+            "distancia": 0.3227
+          },
+          {
+            "id": "docs-readme-bloque20-md:0003:62e8a8a5ae",
+            "fuente": "docs/README-bloque20.md",
+            "distancia": 0.324
+          },
+          {
+            "id": "docs-readme-bloque20-md:0007:8524f55a7a",
+            "fuente": "docs/README-bloque20.md",
+            "distancia": 0.34
+          },
+          {
+            "id": "docs-readme-bloque20-md:0005:204f934c69",
+            "fuente": "docs/README-bloque20.md",
+            "distancia": 0.3438
+          }
+        ],
+        "lexico": [
+          {
+            "id": "readme-md:0059:8aa1deb6b3",
+            "fuente": "README.md",
+            "bm25": 7.677
+          },
+          {
+            "id": "docs-readme-bloque20-md:0009:96a641849e",
+            "fuente": "docs/README-bloque20.md",
+            "bm25": 6.194
+          },
+          {
+            "id": "docs-readme-bloque22-md:0020:3fe7d52ffd",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 6.018
+          },
+          {
+            "id": "docs-readme-bloque22-md:0028:856a647f85",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 5.801
+          },
+          {
+            "id": "docs-readme-bloque22-md:0055:b5c5444038",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 5.759
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-readme-bloque20-md:0009:96a641849e",
+            "fuente": "docs/README-bloque20.md",
+            "rrf": 0.03105,
+            "rango_vectorial": 7,
+            "rango_lexico": 2
+          },
+          {
+            "id": "docs-readme-bloque20-md:0003:62e8a8a5ae",
+            "fuente": "docs/README-bloque20.md",
+            "rrf": 0.02957,
+            "rango_vectorial": 3,
+            "rango_lexico": 13
+          },
+          {
+            "id": "docs-readme-bloque20-md:0008:0950381fed",
+            "fuente": "docs/README-bloque20.md",
+            "rrf": 0.02929,
+            "rango_vectorial": 2,
+            "rango_lexico": 16
+          },
+          {
+            "id": "docs-readme-bloque20-md:0001:d992771439",
+            "fuente": "docs/README-bloque20.md",
+            "rrf": 0.02921,
+            "rango_vectorial": 1,
+            "rango_lexico": 18
+          },
+          {
+            "id": "docs-readme-bloque22-md:0055:b5c5444038",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.02872,
+            "rango_vectorial": 15,
+            "rango_lexico": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-trazas",
+      "pregunta": "¿Dónde quedan guardadas las acciones que realizó el agente en cada consulta?",
+      "primer_acierto_evidencia": {
+        "vectorial": 1,
+        "lexico": 1,
+        "hibrido": 1
+      },
+      "primer_acierto_fuente": {
+        "vectorial": 1,
+        "lexico": 1,
+        "hibrido": 1
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-readme-bloque23-md:0004:6a8d60a3e6",
+            "fuente": "docs/README-bloque23.md",
+            "distancia": 0.2625
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0008:a192cf6dfa",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "distancia": 0.2743
+          },
+          {
+            "id": "docs-readme-bloque21-md:0013:f98fa763b6",
+            "fuente": "docs/README-bloque21.md",
+            "distancia": 0.2908
+          },
+          {
+            "id": "docs-readme-bloque23-md:0003:78a9ab606c",
+            "fuente": "docs/README-bloque23.md",
+            "distancia": 0.2918
+          },
+          {
+            "id": "docs-readme-bloque22-md:0054:a190707e80",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.2923
+          }
+        ],
+        "lexico": [
+          {
+            "id": "docs-readme-bloque23-md:0004:6a8d60a3e6",
+            "fuente": "docs/README-bloque23.md",
+            "bm25": 10.324
+          },
+          {
+            "id": "docs-readme-bloque22-md:0054:a190707e80",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 9.991
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0008:a192cf6dfa",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "bm25": 6.929
+          },
+          {
+            "id": "docs-readme-bloque23-md:0013:c19204e668",
+            "fuente": "docs/README-bloque23.md",
+            "bm25": 6.378
+          },
+          {
+            "id": "docs-readme-bloque21-md:0013:f98fa763b6",
+            "fuente": "docs/README-bloque21.md",
+            "bm25": 6.338
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-readme-bloque23-md:0004:6a8d60a3e6",
+            "fuente": "docs/README-bloque23.md",
+            "rrf": 0.03279,
+            "rango_vectorial": 1,
+            "rango_lexico": 1
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0008:a192cf6dfa",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "rrf": 0.032,
+            "rango_vectorial": 2,
+            "rango_lexico": 3
+          },
+          {
+            "id": "docs-readme-bloque22-md:0054:a190707e80",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.03151,
+            "rango_vectorial": 5,
+            "rango_lexico": 2
+          },
+          {
+            "id": "docs-readme-bloque21-md:0013:f98fa763b6",
+            "fuente": "docs/README-bloque21.md",
+            "rrf": 0.03126,
+            "rango_vectorial": 3,
+            "rango_lexico": 5
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0006:2096a2b29f",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "rrf": 0.02964,
+            "rango_vectorial": 9,
+            "rango_lexico": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-modelo",
+      "pregunta": "¿Por qué se escogió ese modelo de Gemini para la miniaplicación?",
+      "primer_acierto_evidencia": {
+        "vectorial": 1,
+        "lexico": 1,
+        "hibrido": 1
+      },
+      "primer_acierto_fuente": {
+        "vectorial": 1,
+        "lexico": 1,
+        "hibrido": 1
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-decision-arquitectura-md:0003:3841185072",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.1761
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0035:c19c8a9aed",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.1857
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0006:9a4b7d555f",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.2294
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0040:a1f02b1ddf",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.2364
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0007:2ddfe05991",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.2424
+          }
+        ],
+        "lexico": [
+          {
+            "id": "docs-decision-arquitectura-md:0003:3841185072",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 4.193
+          },
+          {
+            "id": "readme-md:0009:ff5e1609a1",
+            "fuente": "README.md",
+            "bm25": 3.483
+          },
+          {
+            "id": "readme-md:0026:1d59f4db2d",
+            "fuente": "README.md",
+            "bm25": 3.423
+          },
+          {
+            "id": "readme-md:0038:db156a32bb",
+            "fuente": "README.md",
+            "bm25": 3.371
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0035:c19c8a9aed",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 3.216
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-decision-arquitectura-md:0003:3841185072",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.03279,
+            "rango_vectorial": 1,
+            "rango_lexico": 1
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0035:c19c8a9aed",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.03151,
+            "rango_vectorial": 2,
+            "rango_lexico": 5
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0006:9a4b7d555f",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.03058,
+            "rango_vectorial": 3,
+            "rango_lexico": 8
+          },
+          {
+            "id": "readme-md:0009:ff5e1609a1",
+            "fuente": "README.md",
+            "rrf": 0.03041,
+            "rango_vectorial": 10,
+            "rango_lexico": 2
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0007:2ddfe05991",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.02927,
+            "rango_vectorial": 5,
+            "rango_lexico": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-ejecucion",
+      "pregunta": "¿Las herramientas del asistente de desarrollo pueden ejecutar comandos en mi computador?",
+      "primer_acierto_evidencia": {
+        "vectorial": 2,
+        "lexico": 1,
+        "hibrido": 3
+      },
+      "primer_acierto_fuente": {
+        "vectorial": 1,
+        "lexico": 1,
+        "hibrido": 1
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-readme-bloque22-md:0012:1d5fdb4569",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.2965
+          },
+          {
+            "id": "docs-readme-bloque22-md:0056:23ccfd82c0",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.2984
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0000:5b9f8b2add",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "distancia": 0.2992
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0001:15006fb3c6",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "distancia": 0.3118
+          },
+          {
+            "id": "docs-readme-bloque21-md:0005:73de9896fa",
+            "fuente": "docs/README-bloque21.md",
+            "distancia": 0.3151
+          }
+        ],
+        "lexico": [
+          {
+            "id": "docs-readme-bloque21-md:0003:3c4bf8ff1b",
+            "fuente": "docs/README-bloque21.md",
+            "bm25": 11.993
+          },
+          {
+            "id": "docs-readme-bloque22-md:0043:3af2fa0bd4",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 10.07
+          },
+          {
+            "id": "docs-readme-bloque21-md:0017:758a4e33a4",
+            "fuente": "docs/README-bloque21.md",
+            "bm25": 8.192
+          },
+          {
+            "id": "docs-readme-bloque22-md:0012:1d5fdb4569",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 6.967
+          },
+          {
+            "id": "docs-readme-bloque21-md:0005:73de9896fa",
+            "fuente": "docs/README-bloque21.md",
+            "bm25": 6.737
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-readme-bloque22-md:0012:1d5fdb4569",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.03202,
+            "rango_vectorial": 1,
+            "rango_lexico": 4
+          },
+          {
+            "id": "docs-readme-bloque22-md:0043:3af2fa0bd4",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.03128,
+            "rango_vectorial": 6,
+            "rango_lexico": 2
+          },
+          {
+            "id": "docs-readme-bloque22-md:0056:23ccfd82c0",
+            "fuente": "docs/README-bloque22.md",
+            "rrf": 0.03105,
+            "rango_vectorial": 2,
+            "rango_lexico": 7
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0001:15006fb3c6",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "rrf": 0.03078,
+            "rango_vectorial": 4,
+            "rango_lexico": 6
+          },
+          {
+            "id": "docs-readme-bloque21-md:0005:73de9896fa",
+            "fuente": "docs/README-bloque21.md",
+            "rrf": 0.03077,
+            "rango_vectorial": 5,
+            "rango_lexico": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-repeticiones",
+      "pregunta": "¿Cómo se detecta que el agente usó la misma herramienta varias veces seguidas?",
+      "primer_acierto_evidencia": {
+        "vectorial": 1,
+        "lexico": 2,
+        "hibrido": 1
+      },
+      "primer_acierto_fuente": {
+        "vectorial": 1,
+        "lexico": 2,
+        "hibrido": 1
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-limites-autonomia-agente-md:0009:afe7d98ca1",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "distancia": 0.228
+          },
+          {
+            "id": "docs-readme-bloque23-md:0006:a6e1cb4ae2",
+            "fuente": "docs/README-bloque23.md",
+            "distancia": 0.2457
+          },
+          {
+            "id": "docs-readme-bloque21-md:0017:758a4e33a4",
+            "fuente": "docs/README-bloque21.md",
+            "distancia": 0.2804
+          },
+          {
+            "id": "docs-readme-bloque21-md:0001:6329f785cc",
+            "fuente": "docs/README-bloque21.md",
+            "distancia": 0.2934
+          },
+          {
+            "id": "docs-readme-bloque21-md:0013:f98fa763b6",
+            "fuente": "docs/README-bloque21.md",
+            "distancia": 0.2989
+          }
+        ],
+        "lexico": [
+          {
+            "id": "docs-readme-bloque21-md:0017:758a4e33a4",
+            "fuente": "docs/README-bloque21.md",
+            "bm25": 11.928
+          },
+          {
+            "id": "docs-limites-autonomia-agente-md:0009:afe7d98ca1",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "bm25": 11.821
+          },
+          {
+            "id": "docs-readme-bloque23-md:0006:a6e1cb4ae2",
+            "fuente": "docs/README-bloque23.md",
+            "bm25": 7.557
+          },
+          {
+            "id": "readme-md:0042:1e7e382b94",
+            "fuente": "README.md",
+            "bm25": 4.961
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0018:cabcdf7f39",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 4.732
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-limites-autonomia-agente-md:0009:afe7d98ca1",
+            "fuente": "docs/limites_autonomia_agente.md",
+            "rrf": 0.03252,
+            "rango_vectorial": 1,
+            "rango_lexico": 2
+          },
+          {
+            "id": "docs-readme-bloque21-md:0017:758a4e33a4",
+            "fuente": "docs/README-bloque21.md",
+            "rrf": 0.03227,
+            "rango_vectorial": 3,
+            "rango_lexico": 1
+          },
+          {
+            "id": "docs-readme-bloque23-md:0006:a6e1cb4ae2",
+            "fuente": "docs/README-bloque23.md",
+            "rrf": 0.032,
+            "rango_vectorial": 2,
+            "rango_lexico": 3
+          },
+          {
+            "id": "docs-readme-bloque21-md:0012:4bbe7c5584",
+            "fuente": "docs/README-bloque21.md",
+            "rrf": 0.02899,
+            "rango_vectorial": 8,
+            "rango_lexico": 10
+          },
+          {
+            "id": "docs-readme-bloque21-md:0001:6329f785cc",
+            "fuente": "docs/README-bloque21.md",
+            "rrf": 0.02878,
+            "rango_vectorial": 4,
+            "rango_lexico": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-fuera-clima",
+      "pregunta": "¿Qué temperatura máxima se pronostica para Santiago mañana?",
+      "primer_acierto_evidencia": {
+        "vectorial": null,
+        "lexico": null,
+        "hibrido": null
+      },
+      "primer_acierto_fuente": {
+        "vectorial": null,
+        "lexico": null,
+        "hibrido": null
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "docs-readme-bloque21-md:0015:430df03c6e",
+            "fuente": "docs/README-bloque21.md",
+            "distancia": 0.4313
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0000:748c82d39b",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.4421
+          },
+          {
+            "id": "readme-md:0020:52cf008fe1",
+            "fuente": "README.md",
+            "distancia": 0.4456
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0021:04d2486bd1",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.4476
+          },
+          {
+            "id": "docs-readme-bloque22-md:0000:801e70d407",
+            "fuente": "docs/README-bloque22.md",
+            "distancia": 0.4494
+          }
+        ],
+        "lexico": [
+          {
+            "id": "docs-decision-arquitectura-md:0023:e25cc75251",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 4.32
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-decision-arquitectura-md:0023:e25cc75251",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.01639,
+            "rango_vectorial": null,
+            "rango_lexico": 1
+          },
+          {
+            "id": "docs-readme-bloque21-md:0015:430df03c6e",
+            "fuente": "docs/README-bloque21.md",
+            "rrf": 0.01639,
+            "rango_vectorial": 1,
+            "rango_lexico": null
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0000:748c82d39b",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.01613,
+            "rango_vectorial": 2,
+            "rango_lexico": null
+          },
+          {
+            "id": "readme-md:0020:52cf008fe1",
+            "fuente": "README.md",
+            "rrf": 0.01587,
+            "rango_vectorial": 3,
+            "rango_lexico": null
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0021:04d2486bd1",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.01562,
+            "rango_vectorial": 4,
+            "rango_lexico": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "val-fuera-k8s",
+      "pregunta": "¿Cómo se configura un clúster de Kubernetes con Helm?",
+      "primer_acierto_evidencia": {
+        "vectorial": null,
+        "lexico": null,
+        "hibrido": null
+      },
+      "primer_acierto_fuente": {
+        "vectorial": null,
+        "lexico": null,
+        "hibrido": null
+      },
+      "top5": {
+        "vectorial": [
+          {
+            "id": "readme-md:0005:a238096a2d",
+            "fuente": "README.md",
+            "distancia": 0.4051
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0006:9a4b7d555f",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.4058
+          },
+          {
+            "id": "docs-readme-bloque23-md:0007:617452bdd1",
+            "fuente": "docs/README-bloque23.md",
+            "distancia": 0.4082
+          },
+          {
+            "id": "docs-readme-bloque23-md:0005:a3602f8f35",
+            "fuente": "docs/README-bloque23.md",
+            "distancia": 0.4129
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0009:54c4e7e3b6",
+            "fuente": "docs/decision-arquitectura.md",
+            "distancia": 0.4131
+          }
+        ],
+        "lexico": [
+          {
+            "id": "readme-md:0011:abeb2a618f",
+            "fuente": "README.md",
+            "bm25": 3.44
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0045:0e12f2f665",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 3.282
+          },
+          {
+            "id": "docs-readme-bloque22-md:0055:b5c5444038",
+            "fuente": "docs/README-bloque22.md",
+            "bm25": 3.07
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0008:edd50f4557",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 3.005
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0007:2ddfe05991",
+            "fuente": "docs/decision-arquitectura.md",
+            "bm25": 2.943
+          }
+        ],
+        "hibrido": [
+          {
+            "id": "docs-decision-arquitectura-md:0008:edd50f4557",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.03078,
+            "rango_vectorial": 6,
+            "rango_lexico": 4
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0006:9a4b7d555f",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.03062,
+            "rango_vectorial": 2,
+            "rango_lexico": 9
+          },
+          {
+            "id": "readme-md:0011:abeb2a618f",
+            "fuente": "README.md",
+            "rrf": 0.03009,
+            "rango_vectorial": 13,
+            "rango_lexico": 1
+          },
+          {
+            "id": "docs-decision-arquitectura-md:0007:2ddfe05991",
+            "fuente": "docs/decision-arquitectura.md",
+            "rrf": 0.02837,
+            "rango_vectorial": 17,
+            "rango_lexico": 5
+          },
+          {
+            "id": "readme-md:0053:d155ac9cfa",
+            "fuente": "README.md",
+            "rrf": 0.02639,
+            "rango_vectorial": 20,
+            "rango_lexico": 12
+          }
+        ]
+      }
+    }
+  ]
+}
