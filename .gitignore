@@ -21,3 +21,7 @@ Thumbs.db
 *.log
 
 trazas_agente_bloque23.jsonl
+
+# Índices vectoriales generados (RAG, Bloques 24-26)
+vectorstore/
+vectorstore_ejemplo/
