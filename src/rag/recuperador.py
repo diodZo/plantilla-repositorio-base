@@ -56,6 +56,22 @@ def buscar_con_score(almacen, pregunta: str, k: int = K_POR_DEFECTO) -> list[tup
     return _consultar(lambda: almacen.similarity_search_with_score(pregunta, k=k))
 
 
+def buscar_por_vector_con_score(almacen, vector: list[float], k: int = K_POR_DEFECTO) -> list[tuple[Document, float]]:
+    """Igual que `buscar_con_score`, pero con el embedding ya calculado (Bloque 28).
+
+    `similarity_search_with_score` hace `embed_query(pregunta)` y luego consulta Chroma por
+    vector; esta función hace solo la segunda parte, con la misma consulta interna
+    (`similarity_search_by_vector_with_relevance_scores`), así que devuelve los mismos
+    documentos, metadatos, orden y distancias sin un segundo embedding.
+    """
+    if isinstance(k, bool) or not isinstance(k, int) or k < 1:
+        raise ValueError("k debe ser un entero mayor o igual a 1.")
+    if not vector:
+        raise ValueError("El vector de consulta no puede estar vacío.")
+    verificar_no_vacio(almacen)
+    return _consultar(lambda: almacen.similarity_search_by_vector_with_relevance_scores(vector, k=k))
+
+
 def crear_retriever(almacen, k: int = K_POR_DEFECTO):
     """as_retriever(): interfaz Runnable estándar de LangChain para el mismo índice."""
     if isinstance(k, bool) or not isinstance(k, int) or k < 1:

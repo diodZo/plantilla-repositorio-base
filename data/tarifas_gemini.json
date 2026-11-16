@@ -1,0 +1,17 @@
+{
+  "moneda": "USD",
+  "unidad": "por 1 000 000 de tokens",
+  "fuente": "https://ai.google.dev/gemini-api/docs/pricing (redirige a https://aistudio.google.com/docs/pricing)",
+  "fecha_consulta": "2026-11-16",
+  "tipo": "verificada",
+  "notas": [
+    "Tarifas del nivel de PAGO ('Standard'). En el nivel gratuito, entrada y salida figuran como 'Free of charge'.",
+    "La página no muestra fecha de última actualización; los precios pueden cambiar. Revisar la fuente antes de usar estas cifras.",
+    "La salida incluye los tokens de razonamiento ('including thinking tokens').",
+    "Los costos calculados con estas tarifas son estimaciones a partir de tokens; no son el importe facturado."
+  ],
+  "modelos": {
+    "gemini-3.5-flash-lite": {"entrada": 0.30, "salida": 2.50},
+    "models/gemini-embedding-001": {"entrada": 0.15, "salida": null}
+  }
+}
