@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "descripcion": "Dataset de evaluación del Bloque 27 (precisión y exhaustividad de la recuperación). 12 casos: 10 con respuesta en el corpus y 2 sin respuesta (uno dentro del dominio y otro fuera de él).",
+  "metodo_etiquetado": "Para cada pregunta se leyó el documento fuente y se copiaron pasajes literales que la responden. Un chunk es relevante si su cuerpo (sin la ruta de encabezados) contiene al menos 40 caracteres consecutivos de un pasaje, o el pasaje completo si es más corto, ignorando tildes, mayúsculas y espacios repetidos. Una sección es relevante si contiene un chunk relevante. Los IDs se derivan con `python -m src.evaluar_bloque27 --etiquetar` a partir del chunking determinista, sin consultar el ranking del recuperador, y se verifican contra Chroma.",
+  "limitaciones": "Lo redactó y etiquetó la misma persona que desarrolló el sistema, durante el desarrollo, y no evaluadores externos independientes. Algunas preguntas comparten temas con los conjuntos históricos del Bloque 26. Los pasajes de indexación y recuperación semántica provienen de la sección de README.md escrita en la consolidación del Bloque 26. Con 10 casos con respuesta, los promedios tienen una incertidumbre alta.",
+  "conjuntos_historicos": {
+    "data/evaluacion/consultas_recuperacion.json": "Desarrollo del Bloque 26: guió el diseño de la expansión. Histórico; no es evidencia de generalización.",
+    "data/evaluacion/consultas_validacion.json": "Validación del Bloque 26: no se usó para ajustar el sistema, pero lo redactó el mismo autor. Histórico; su formato (fuentes y subcadenas de evidencia) no tiene IDs de chunks y no se reutiliza para las métricas de este bloque."
+  },
+  "congelado": "2026-11-16T22:51:22+00:00",
+  "casos": [
+    {
+      "id": "c01-backoff",
+      "tema": "reintentos y backoff",
+      "sin_respuesta": false,
+      "pregunta": "¿Qué estrategia de espera aplica el cliente modular entre intentos fallidos?",
+      "pasajes": [
+        {
+          "fuente": "README.md",
+          "texto": "reintentos con backoff exponencial y jitter, clasificación de errores y costo referencial"
+        }
+      ],
+      "justificacion": "La tabla de módulos del README describe src/cliente.py con reintentos, backoff exponencial y jitter. Es el único documento del corpus que nombra la estrategia.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "readme-md:0020:a2348e0e84"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "readme-md:0018:1a3e060f49"
+          ],
+          "secciones": [
+            "readme-md#Miniaplicación Python — Google Gemini > Módulos por bloque"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c02-clave-filtrada",
+      "tema": "credenciales",
+      "sin_respuesta": false,
+      "pregunta": "¿Qué hay que hacer si la clave de la API quedó publicada por error en un commit?",
+      "pasajes": [
+        {
+          "fuente": "README.md",
+          "texto": "Si una clave real se filtró en algún commit, revócala/regenérala en Google AI Studio y evalúa limpiar el historial."
+        }
+      ],
+      "justificacion": "Instrucción explícita del README en la sección de instalación limpia.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "readme-md:0061:f307de5c90"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "readme-md:0057:f6e8626b8e"
+          ],
+          "secciones": [
+            "readme-md#Miniaplicación Python — Google Gemini > Instalación limpia para Gate 1"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c03-401-sin-respuesta",
+      "tema": "errores de autenticación",
+      "sin_respuesta": true,
+      "pregunta": "¿El cliente vuelve a intentar la petición cuando Gemini responde 401 por una credencial inválida?",
+      "pasajes": [],
+      "justificacion": "La política (no reintentar 401/403) está implementada en src/cliente.py, que no forma parte del corpus indexado. Los documentos solo dicen 'clasificación de errores', sin detallar qué ocurre con las credenciales inválidas. Caso sin respuesta dentro del dominio.",
+      "relevantes": {
+        "base": {
+          "chunks": []
+        },
+        "markdown": {
+          "chunks": []
+        }
+      }
+    },
+    {
+      "id": "c04-tarifa",
+      "tema": "costos de API",
+      "sin_respuesta": false,
+      "pregunta": "¿Con qué tarifa se estima el gasto por tokens y es la vigente de Gemini?",
+      "pasajes": [
+        {
+          "fuente": "README.md",
+          "texto": "con una tarifa ilustrativa que no corresponde al precio oficial de Gemini"
+        },
+        {
+          "fuente": "docs/ensayo-bloque13.md",
+          "texto": "no corresponde necesariamente a la tarifa vigente de Gemini"
+        }
+      ],
+      "justificacion": "Dos documentos afirman que la tarifa del cálculo es ilustrativa o didáctica, no la oficial.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "readme-md:0065:1bf856821f",
+            "docs-ensayo-bloque13-md:0004:d7b97bb84b"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "readme-md:0060:b65eef070b",
+            "docs-ensayo-bloque13-md:0004:424997ebe6"
+          ],
+          "secciones": [
+            "readme-md#Miniaplicación Python — Google Gemini > Documentación de la decisión",
+            "docs-ensayo-bloque13-md#Bloque 13 — Registro de backoff, cuota y costos > Advertencias"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c05-herramientas",
+      "tema": "herramientas del agente",
+      "sin_respuesta": false,
+      "pregunta": "¿Qué herramientas propias tiene el primer agente y para qué sirve cada una?",
+      "pasajes": [
+        {
+          "fuente": "docs/README-bloque21.md",
+          "texto": "`diagnosticar_error_python(error: str)`: ofrece orientación general sobre `ModuleNotFoundError`, `NameError` y `TypeError`."
+        },
+        {
+          "fuente": "docs/README-bloque21.md",
+          "texto": "`sugerir_comando_git(operacion: str)`: sugiere `git status`, `git diff` o `git log` según la petición, sin ejecutarlos."
+        }
+      ],
+      "justificacion": "La sección 'Dominio elegido' del Bloque 21 enumera las dos herramientas y su propósito.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "docs-readme-bloque21-md:0008:c26529d09c",
+            "docs-readme-bloque21-md:0009:e46db5ed13"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "docs-readme-bloque21-md:0006:95033fe549",
+            "docs-readme-bloque21-md:0007:47cf6d7894"
+          ],
+          "secciones": [
+            "docs-readme-bloque21-md#Bloque 21 — Primer agente con herramientas y traza > Dominio elegido"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c06-memoria",
+      "tema": "memoria conversacional",
+      "sin_respuesta": false,
+      "pregunta": "¿Cómo guarda el agente la conversación de cada usuario por separado?",
+      "pasajes": [
+        {
+          "fuente": "docs/README-bloque22.md",
+          "texto": "Cada `session_id` tiene su propio `InMemoryChatMessageHistory`. Las pruebas comprueban que la sesión `b` no recibe nada de la sesión `a`."
+        }
+      ],
+      "justificacion": "Explica el aislamiento por session_id y cómo se verifica.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "docs-readme-bloque22-md:0037:1b6c417f3c"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "docs-readme-bloque22-md:0032:238108bca8"
+          ],
+          "secciones": [
+            "docs-readme-bloque22-md#Bloque 22 — Herramienta personalizada y memoria entre interacciones > Aislamiento de sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c07-aprobacion",
+      "tema": "supervisión humana",
+      "sin_respuesta": false,
+      "pregunta": "¿Qué acción del agente debe aprobar una persona y qué ocurre si no contesta?",
+      "pasajes": [
+        {
+          "fuente": "docs/limites_autonomia_agente.md",
+          "texto": "La simulación de reembolso sí pide una decisión humana explícita `s`; cualquier otra respuesta, la falta de consola o el agotamiento del tiempo la bloquea."
+        },
+        {
+          "fuente": "docs/README-bloque23.md",
+          "texto": "Si falta TTY, vence el plazo o la respuesta no es `s`, la acción se rechaza."
+        }
+      ],
+      "justificacion": "Ambos documentos describen la aprobación explícita y el rechazo por falta de respuesta a tiempo.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "docs-limites-autonomia-agente-md:0007:2d2c9bfd96",
+            "docs-readme-bloque23-md:0003:327c8b5b88"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "docs-limites-autonomia-agente-md:0005:b870c983c5",
+            "docs-readme-bloque23-md:0002:98eaa19b13"
+          ],
+          "secciones": [
+            "docs-limites-autonomia-agente-md#Límites de autonomía — Agente educativo Python/Git (Bloque 23) > Supervisión humana",
+            "docs-readme-bloque23-md#Bloque 23 — Supervisión humana y trazabilidad del agente > Diseño"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c08-trazas",
+      "tema": "registro de trazas",
+      "sin_respuesta": false,
+      "pregunta": "¿Qué datos se registran sobre lo que hizo el agente en cada consulta?",
+      "pasajes": [
+        {
+          "fuente": "docs/limites_autonomia_agente.md",
+          "texto": "`registrar_traza` guarda la consulta, herramienta, argumentos, observación y respuesta final en `trazas_agente_bloque23.jsonl`."
+        },
+        {
+          "fuente": "docs/README-bloque23.md",
+          "texto": "`registrar_traza` genera `trazas_agente_bloque23.jsonl` en UTF-8 con consultas, acciones observables y respuestas finales."
+        }
+      ],
+      "justificacion": "Los dos documentos enumeran los campos registrados por registrar_traza.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "docs-limites-autonomia-agente-md:0011:b99537bb35",
+            "docs-readme-bloque23-md:0005:f9d5585149"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "docs-limites-autonomia-agente-md:0008:a192cf6dfa",
+            "docs-readme-bloque23-md:0004:6a8d60a3e6"
+          ],
+          "secciones": [
+            "docs-limites-autonomia-agente-md#Límites de autonomía — Agente educativo Python/Git (Bloque 23) > Revisión de trazas",
+            "docs-readme-bloque23-md#Bloque 23 — Supervisión humana y trazabilidad del agente > Diseño"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c09-indexacion",
+      "tema": "indexación y persistencia RAG",
+      "sin_respuesta": false,
+      "pregunta": "¿Dónde quedan almacenados los índices vectoriales y qué se recalcula al indexar de nuevo?",
+      "pasajes": [
+        {
+          "fuente": "README.md",
+          "texto": "Los índices se guardan en `vectorstore/` y `vectorstore_ejemplo/`, excluidos de Git."
+        },
+        {
+          "fuente": "README.md",
+          "texto": "Volver a indexar solo calcula embeddings de los chunks nuevos."
+        }
+      ],
+      "justificacion": "Sección 'Indexación y persistencia' del README (escrita en la consolidación del Bloque 26).",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "readme-md:0076:ca15a97e7b",
+            "readme-md:0078:36b5b4b395"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "readme-md:0068:bbef819959",
+            "readme-md:0070:1626e151f1"
+          ],
+          "secciones": [
+            "readme-md#Miniaplicación Python — Google Gemini > RAG sobre la documentación del proyecto (Bloques 24–26) > Indexación y persistencia"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c10-puntaje",
+      "tema": "recuperación semántica",
+      "sin_respuesta": false,
+      "pregunta": "¿Cómo debe interpretarse el puntaje que entrega la búsqueda semántica?",
+      "pasajes": [
+        {
+          "fuente": "README.md",
+          "texto": "búsqueda vectorial (distancia coseno; no es un porcentaje)"
+        }
+      ],
+      "justificacion": "Sección 'Recuperación semántica y expansión' del README.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "readme-md:0083:aeee5cb530"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "readme-md:0074:a1487fdaf9"
+          ],
+          "secciones": [
+            "readme-md#Miniaplicación Python — Google Gemini > RAG sobre la documentación del proyecto (Bloques 24–26) > Recuperación semántica y expansión"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c11-fallback",
+      "tema": "manejo de errores",
+      "sin_respuesta": false,
+      "pregunta": "¿Cómo se protege la ruta de quejas cuando el modelo falla?",
+      "pasajes": [
+        {
+          "fuente": "docs/README-bloque20.md",
+          "texto": "protege la ruta de queja mediante `with_fallbacks` y una respuesta fija apropiada."
+        }
+      ],
+      "justificacion": "La sección 'Cambios' del Bloque 20 describe el fallback de la ruta de queja.",
+      "relevantes": {
+        "base": {
+          "chunks": [
+            "docs-readme-bloque20-md:0002:8245603ff2"
+          ]
+        },
+        "markdown": {
+          "chunks": [
+            "docs-readme-bloque20-md:0001:d992771439"
+          ],
+          "secciones": [
+            "docs-readme-bloque20-md#Bloque 20 — Manejo de errores por paso en el flujo orquestado > Cambios"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c12-bd-pedidos",
+      "tema": "fuera del corpus",
+      "sin_respuesta": true,
+      "pregunta": "¿Qué base de datos relacional usa el proyecto para guardar los pedidos de los clientes?",
+      "pasajes": [],
+      "justificacion": "Ningún documento del corpus menciona bases de datos relacionales ni pedidos de clientes (la tienda del Bloque 25 está en otra colección).",
+      "relevantes": {
+        "base": {
+          "chunks": []
+        },
+        "markdown": {
+          "chunks": []
+        }
+      }
+    }
+  ],
+  "huella_etiquetas": "9e7782ea84742b06a8edaf3a4804e2256673bc8fe9df81f14534a7ef429d1b3f"
+}

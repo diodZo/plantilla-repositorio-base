@@ -12,7 +12,7 @@ from langchain_core.documents import Document
 
 from src.rag.configuracion import K_POR_DEFECTO, obtener_clave_api, obtener_modelo_chat
 from src.rag.errores import DependenciaFaltanteError
-from src.rag.expansion import MAX_CARACTERES_SECCION, clave_expandido, expandir_documento
+from src.rag.expansion import MAX_CARACTERES_SECCION, expandir_hasta_k
 from src.rag.hibrido import CANDIDATOS_POR_DEFECTO, K_RRF, buscar_hibrido
 from src.rag.prompts import construir_prompt
 from src.rag.recuperador import buscar_con_score, formatear_contexto
@@ -67,18 +67,9 @@ def recuperar(
                  for r in buscar_hibrido(almacen, pregunta, profundidad, candidatos, candidatos, k_rrf)]
     if not expandir:
         return items[:k]
-    vistos: set = set()
-    expandidos: list[ResultadoRecuperado] = []
-    for item in items:
-        documento = expandir_documento(almacen, item.documento, max_seccion)
-        clave = clave_expandido(item.documento, documento)
-        if clave in vistos:
-            continue
-        vistos.add(clave)
-        expandidos.append(ResultadoRecuperado(documento, item.puntaje, item.tipo_puntaje))
-        if len(expandidos) == k:
-            break
-    return expandidos
+    unidades = expandir_hasta_k(almacen, [i.documento for i in items], k, max_seccion)
+    return [ResultadoRecuperado(documento, items[posicion].puntaje, items[posicion].tipo_puntaje)
+            for posicion, documento in unidades]
 
 
 def aplicar_limite_contexto(

@@ -88,6 +88,28 @@ def clave_expandido(original: Document, expandido: Document) -> tuple:
     return tuple(expandido.metadata.get("chunk_ids_expandidos", [expandido.id]))
 
 
+def expandir_hasta_k(almacen, documentos: list[Document], k: int,
+                     max_caracteres: int = MAX_CARACTERES_SECCION) -> list[tuple[int, Document]]:
+    """Expande en orden de ranking, deduplica y se detiene al reunir k unidades.
+
+    Devuelve (posición del chunk de origen en el ranking, unidad expandida). Es la lógica que
+    usa `generador.recuperar`; también la usa la evaluación del Bloque 27 para medir
+    exactamente lo que llega al generador.
+    """
+    vistos: set = set()
+    unidades: list[tuple[int, Document]] = []
+    for posicion, documento in enumerate(documentos):
+        expandido = expandir_documento(almacen, documento, max_caracteres)
+        clave = clave_expandido(documento, expandido)
+        if clave in vistos:
+            continue
+        vistos.add(clave)
+        unidades.append((posicion, expandido))
+        if len(unidades) == k:
+            break
+    return unidades
+
+
 def expandir_resultados(almacen, documentos: list[Document], max_caracteres: int = MAX_CARACTERES_SECCION,
                         ventana: int = VENTANA_VECINOS) -> list[Document]:
     """Expande en orden de ranking y deduplica unidades repetidas (misma sección o misma ventana)."""
