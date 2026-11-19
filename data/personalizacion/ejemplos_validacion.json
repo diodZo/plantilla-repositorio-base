@@ -1,0 +1,42 @@
+[
+  {
+    "entrada": "httpx.ConnectError: [Errno 11001] getaddrinfo failed",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"comprobar la conexión y la resolución DNS; luego reintentar con backoff exponencial\"}"
+  },
+  {
+    "entrada": "TimeoutError: Gemini respondió HTTP 502; error temporal o cuota excedida.",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"reintentar con backoff exponencial; el servidor devolvió un error transitorio 5xx\"}"
+  },
+  {
+    "entrada": "CredencialesInvalidasError: Gemini rechazó la clave (credencial inválida o sin permiso). Revisa .env; no se reintenta.",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"reemplazar la clave inválida en .env; no reintentar\"}"
+  },
+  {
+    "entrada": "RuntimeError: Configura GOOGLE_API_KEY, GEMINI_API_KEY o API_KEY en .env",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"configurar una clave válida en .env antes de ejecutar el agente; no reintentar\"}"
+  },
+  {
+    "entrada": "ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"esperar y reintentar con backoff exponencial; revisar la cuota disponible\"}"
+  },
+  {
+    "entrada": "ErrorTransitorio: Fallo transitorio de Gemini (ClientError: 429 RESOURCE_EXHAUSTED) durante embed_documents",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"reducir el tamaño de lote y aumentar la pausa entre lotes; reintentar con backoff\"}"
+  },
+  {
+    "entrada": "ModuleNotFoundError: No module named 'langchain_chroma'",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"instalar langchain-chroma con python -m pip install -r requirements.txt en el entorno virtual\"}"
+  },
+  {
+    "entrada": "OSError: [Errno 30] Read-only file system: 'vectorstore'",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"usar un directorio con permisos de escritura para el índice\"}"
+  },
+  {
+    "entrada": "MetadataFaltanteError: Chunk sin ['fuente']: 'El backoff exponencial espera cada vez más entre intentos'",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"regenerar los chunks con la metadata obligatoria y volver a indexar\"}"
+  },
+  {
+    "entrada": "EmbeddingsIncompatiblesError: La dimensión de los embeddings de consulta no coincide con el índice: Collection expecting embedding with dimension of 768, got 3072",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"usar el mismo modelo de embeddings del índice o reconstruirlo con --reconstruir\"}"
+  }
+]

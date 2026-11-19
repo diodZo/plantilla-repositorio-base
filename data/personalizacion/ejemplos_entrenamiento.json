@@ -1,0 +1,102 @@
+[
+  {
+    "entrada": "httpx.ConnectTimeout: timed out al conectar con generativelanguage.googleapis.com:443",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"reintentar con backoff exponencial; es un fallo transitorio de red\"}"
+  },
+  {
+    "entrada": "TimeoutError: No se pudo contactar a Gemini; fallo temporal de red.",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"reintentar con backoff exponencial y jitter; si persiste, comprobar la conexión\"}"
+  },
+  {
+    "entrada": "requests.exceptions.ConnectionError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Max retries exceeded (Caused by NewConnectionError: Failed to establish a new connection)",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"comprobar la conexión a internet o el proxy y reintentar con backoff exponencial\"}"
+  },
+  {
+    "entrada": "ErrorTransitorio: Fallo transitorio de Gemini (ReadTimeout: The read operation timed out)",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"reintentar con backoff exponencial; la llamada ya se clasificó como transitoria\"}"
+  },
+  {
+    "entrada": "google.genai.errors.ServerError: 503 UNAVAILABLE. The model is overloaded. Please try again later.",
+    "salida": "{\"categoria\": \"red\", \"accion_sugerida\": \"reintentar con backoff exponencial; el servicio está temporalmente saturado (5xx)\"}"
+  },
+  {
+    "entrada": "google.genai.errors.ClientError: 400 INVALID_ARGUMENT. API key not valid. Please pass a valid API key. (reason: API_KEY_INVALID)",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"revisar la API_KEY en .env; no reintentar porque la credencial es inválida\"}"
+  },
+  {
+    "entrada": "ValueError: Credencial inválida o sin permiso. Revisa API_KEY.",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"corregir API_KEY en .env y verificar sus permisos; no reintentar\"}"
+  },
+  {
+    "entrada": "ClientError: 403 PERMISSION_DENIED. The caller does not have permission.",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"verificar que la clave tenga permiso para usar la API de Gemini; no reintentar\"}"
+  },
+  {
+    "entrada": "HTTP 401 UNAUTHENTICATED: Request had invalid authentication credentials.",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"renovar o corregir la credencial configurada en .env; no reintentar\"}"
+  },
+  {
+    "entrada": "CredencialesFaltantesError: No hay clave de Gemini. Define GOOGLE_API_KEY, GEMINI_API_KEY o API_KEY en .env",
+    "salida": "{\"categoria\": \"autenticacion\", \"accion_sugerida\": \"definir una clave en .env a partir de .env.example; no reintentar\"}"
+  },
+  {
+    "entrada": "google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. You exceeded your current quota, please check your plan and billing details.",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"esperar y reintentar con backoff exponencial; si persiste, revisar la cuota y el plan de facturación\"}"
+  },
+  {
+    "entrada": "TimeoutError: Gemini respondió HTTP 429; error temporal o cuota excedida.",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"reintentar con backoff exponencial y reducir el ritmo de peticiones\"}"
+  },
+  {
+    "entrada": "429 RESOURCE_EXHAUSTED: Quota exceeded for requests per minute on the free tier",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"esperar a que se renueve la ventana por minuto y reintentar con backoff; reducir el ritmo de peticiones\"}"
+  },
+  {
+    "entrada": "ErrorTransitorio: Fallo transitorio de Gemini (ClientError: 429 RESOURCE_EXHAUSTED) al indexar el lote 7 de 40",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"aumentar --pausa y reducir --lote en src.indexar_corpus; reintentar con backoff\"}"
+  },
+  {
+    "entrada": "429 RESOURCE_EXHAUSTED: Quota exceeded for embed_content requests per day",
+    "salida": "{\"categoria\": \"cuota\", \"accion_sugerida\": \"esperar a la renovación diaria de la cuota o revisar el plan; reintentar ahora no lo resolverá\"}"
+  },
+  {
+    "entrada": "ModuleNotFoundError: No module named 'chromadb'",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"activar el entorno virtual e instalar dependencias con python -m pip install -r requirements.txt\"}"
+  },
+  {
+    "entrada": "DependenciaFaltanteError: Falta langchain-google-genai. Ejecuta: python -m pip install -r requirements.txt",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"instalar las dependencias de requirements.txt en el entorno virtual activo\"}"
+  },
+  {
+    "entrada": "DirectorioNoEscribibleError: No se puede escribir en vectorstore: [Errno 13] Permission denied",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"verificar los permisos de escritura del directorio del índice o elegir otro directorio\"}"
+  },
+  {
+    "entrada": "PermissionError: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso: 'vectorstore\\chroma.sqlite3'",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"cerrar el proceso que mantiene abierto el directorio del índice y volver a ejecutar\"}"
+  },
+  {
+    "entrada": "RuntimeError: Your system has an unsupported version of sqlite3. Chroma requires sqlite3 >= 3.35.0.",
+    "salida": "{\"categoria\": \"entorno\", \"accion_sugerida\": \"actualizar Python o sqlite3 a una versión con sqlite3 >= 3.35.0, que Chroma exige\"}"
+  },
+  {
+    "entrada": "EmbeddingsIncompatiblesError: La colección corpus_bloque24_markdown usa embeddings 'models/text-embedding-004', pero se configuró 'models/gemini-embedding-001'. Reconstruye con --reconstruir.",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"reconstruir el índice con --reconstruir usando el modelo de embeddings configurado\"}"
+  },
+  {
+    "entrada": "chromadb.errors.InvalidArgumentError: Collection expecting embedding with dimension of 3072, got 768",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"consultar con el mismo modelo de embeddings con que se indexó o reconstruir el índice\"}"
+  },
+  {
+    "entrada": "ColeccionInexistenteError: La colección 'corpus_bloque26' no existe en vectorstore. Disponibles: ninguna.",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"ejecutar primero la indexación de la colección configurada con python -m src.indexar_corpus\"}"
+  },
+  {
+    "entrada": "IndiceVacioError: La colección 'corpus_bloque24_markdown' está vacía. Ejecuta primero la indexación.",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"volver a indexar el corpus en la colección; no se puede consultar un índice vacío\"}"
+  },
+  {
+    "entrada": "ConfiguracionIncompatibleError: La colección tiene chunk_size=800, la configuración pide 1000. Usa la misma configuración o --reconstruir.",
+    "salida": "{\"categoria\": \"consistencia_indice\", \"accion_sugerida\": \"usar la misma configuración de chunking del índice o reconstruirlo con --reconstruir\"}"
+  }
+]
