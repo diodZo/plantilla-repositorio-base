@@ -28,3 +28,6 @@ vectorstore_ejemplo/
 
 # Registros de latencia y costo (Bloque 28): pueden contener preguntas de usuarios
 registros_latencia_costo.jsonl
+
+# Auditoría JSONL del RAG (Bloque 31): eventos de consultas reales; no se versionan
+logs/
