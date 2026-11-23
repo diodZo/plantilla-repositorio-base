@@ -25,6 +25,7 @@ from langchain_core.callbacks import CallbackManagerForRetrieverRun
 from langchain_core.documents import Document
 from langchain_core.retrievers import BaseRetriever
 
+from src.gobernanza.registro_prompts import identificar_prompt_enviado
 from src.rag.costos import Tarifa, buscar_tarifa, desglose_costo, extraer_uso
 from src.rag.expansion import MAX_CARACTERES_SECCION, expandir_hasta_k
 from src.rag.generador import RESPUESTA_SIN_CONTEXTO, ResultadoRecuperado, calcular_metricas, texto_de_respuesta
@@ -85,6 +86,7 @@ class RespuestaAuditada:
     consumo: dict | None = None
     tiempos: dict = field(default_factory=dict)
     prompt_mensajes: list = field(default_factory=list)  # Solo en memoria: nunca se escribe en el log.
+    prompt: dict | None = None  # Identificación de la versión del prompt enviado (Bloque 32).
 
 
 def descripcion_unidad(unidad: UnidadDescartada) -> dict:
@@ -205,7 +207,9 @@ def consultar_auditado(
                         contexto, citas = formatear_contexto(filtro.permitidos)
                         mensajes = construir_prompt_seguro(pregunta, contexto).to_messages()
                         verificar_sin_cuarentena(mensajes, filtro.cuarentena)
-                    registrar_evento(logger, "generacion_iniciada", modelo=modelo_generacion,
+                    # Bloque 32: qué versión registrada corresponde al texto REALMENTE enviado (no lo cambia).
+                    prompt_info = identificar_prompt_enviado(mensajes)
+                    registrar_evento(logger, "generacion_iniciada", **prompt_info, modelo=modelo_generacion,
                                      unidades_contexto=len(filtro.permitidos), roles=[m.type for m in mensajes],
                                      caracteres_contexto=len(contexto),
                                      caracteres_prompt=sum(len(str(m.content)) for m in mensajes))
@@ -233,7 +237,7 @@ def consultar_auditado(
                         registrar_evento(logger, "citas_invalidas", logging.WARNING,
                                          citas_invalidas=metricas["citas_invalidas"], citas_disponibles=sorted(citas))
                     resultado = RespuestaAuditada(tid, "ok", texto, citas, descartadas, metricas,
-                                                  prompt_mensajes=mensajes)
+                                                  prompt_mensajes=mensajes, prompt=prompt_info)
         except Exception as error:
             registrar_evento(logger, "consulta_fallida", logging.ERROR, etapa=etapa, error_tipo=type(error).__name__,
                              etapas_fallidas=list(medidor.etapas_fallidas),

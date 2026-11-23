@@ -1,0 +1,148 @@
+{
+  "descripcion": "Matriz de riesgos del Bloque 32. Probabilidad e impacto (1-5) son estimaciones justificadas con evidencia del repositorio; el puntaje y la categoría se calculan con la fórmula oficial del curso.",
+  "riesgos": [
+    {
+      "id": "R01",
+      "riesgo": "Inyección de prompt indirecta en contenido recuperado que supera el detector léxico",
+      "evidencia": [
+        {"ruta": "src/rag/seguridad_prompt.py", "detalle": "Detector por expresiones regulares sobre las unidades finales"},
+        {"ruta": "tests/test_rag_seguridad_prompt.py", "detalle": "FALSOS_NEGATIVOS_CONOCIDOS: reformulación, portugués, alemán, base64 y ofuscación pasan"},
+        {"ruta": "docs/informe_seguridad_bloque31.md", "detalle": "Sección 4: ataques que pasan"}
+      ],
+      "probabilidad": 2,
+      "justificacion_probabilidad": "El corpus son documentos del propio repositorio (MANIFIESTO_BLOQUE24/25) y solo quien tiene acceso de escritura puede introducir un ataque; pero evadir el detector es trivial para ese atacante (5 falsos negativos documentados).",
+      "impacto": 4,
+      "justificacion_impacto": "Un ataque que llega al prompt puede hacer que el modelo ignore reglas, invente citas o revele las instrucciones del sistema en todas las respuestas que recuperen esa sección.",
+      "mitigacion_existente": "Roles reales, delimitadores neutralizados, regla 8 y cuarentena de unidades sospechosas tras la expansión (Bloque 31), con verificar_sin_cuarentena.",
+      "limitaciones": "Detector léxico evadible; no se midió la reacción de Gemini real. Ante contenido sospechoso el sistema descarta la unidad y CONTINÚA: no detiene la consulta ni la deriva a revisión como pide el criterio del curso (brecha pendiente).",
+      "supervision": {"control": "Revisión humana de las unidades en cuarentena (evento documento_descartado_por_inyeccion) y detención con derivación a revisión ante contenido sospechoso", "estado": "propuesto", "evidencia": "Hoy solo existe el registro del descarte en logs/rag_auditoria.jsonl; no hay cola ni interfaz de revisión."},
+      "estado_control": "implementado_probado",
+      "bloques": [26, 31]
+    },
+    {
+      "id": "R02",
+      "riesgo": "Filtración de información sensible desde registros locales que guardan el texto de las consultas",
+      "evidencia": [
+        {"ruta": "src/rag/observabilidad.py", "detalle": "El registro del Bloque 28 guarda 'pregunta' completa en registros_latencia_costo.jsonl"},
+        {"ruta": "src/agente_bloque23.py", "detalle": "registrar_traza guarda 'entrada', argumentos y observaciones en trazas_agente_bloque23.jsonl"},
+        {"ruta": ".gitignore", "detalle": "Ambos archivos y logs/ están excluidos de git"}
+      ],
+      "probabilidad": 3,
+      "justificacion_probabilidad": "Cada uso de src.registro_rag o del agente del Bloque 23 escribe el texto del usuario por diseño; la exposición requiere además compartir o copiar esos archivos fuera del equipo.",
+      "impacto": 3,
+      "justificacion_impacto": "Proyecto académico sin datos personales reales, pero si se usara con consultas reales los archivos contendrían texto libre del usuario sin anonimizar.",
+      "mitigacion_existente": ".gitignore de los registros; preflight que bloquea archivos generados en staging (comprobar_staging); el log del Bloque 31 no guarda pregunta ni contenido.",
+      "limitaciones": "Sin retención, rotación ni permisos de acceso; comprobar_staging no tiene prueba específica; los registros de los Bloques 23 y 28 siguen guardando texto completo.",
+      "supervision": {"control": "Autorización explícita antes de acceder, copiar o compartir registros con texto de usuarios", "estado": "propuesto", "evidencia": "No implementado."},
+      "estado_control": "implementado_sin_prueba",
+      "bloques": [23, 28, 31]
+    },
+    {
+      "id": "R03",
+      "riesgo": "Rutas antiguas del RAG que envían el prompt del Bloque 26 sin el filtro de inyección",
+      "evidencia": [
+        {"ruta": "src/rag/generador.py", "detalle": "responder() usa construir_prompt sin filtrar_unidades"},
+        {"ruta": "src/recuperar_corpus.py", "detalle": "CLI del Bloque 26 con construir_prompt"},
+        {"ruta": "src/rag/observabilidad.py", "detalle": "consultar_instrumentado (src.registro_rag) con construir_prompt"},
+        {"ruta": "src/evaluar_bloque27.py", "detalle": "Evaluación con construir_prompt"}
+      ],
+      "probabilidad": 4,
+      "justificacion_probabilidad": "Son los CLI documentados en los README 26-28 y los puntos de entrada más usados; cualquier consulta por esas rutas omite la capa 3.",
+      "impacto": 3,
+      "justificacion_impacto": "Conservan roles y delimitadores (capas 1-2), así que el daño depende de que exista contenido malicioso en el corpus interno (ver R01).",
+      "mitigacion_existente": "Capas 1 y 2 (roles reales y delimitadores) presentes también en el prompt del Bloque 26.",
+      "limitaciones": "Sin cuarentena ni registro de auditoría ni identificación de versión de prompt en esas rutas.",
+      "supervision": {"control": "Revisión obligatoria de cambios que afecten fuentes, citas o seguridad, y decisión explícita de migrar o retirar las rutas antiguas", "estado": "propuesto", "evidencia": "Limitación documentada en docs/README-bloque31.md; sin decisión tomada."},
+      "estado_control": "documentado_pendiente",
+      "bloques": [26, 27, 28, 31]
+    },
+    {
+      "id": "R04",
+      "riesgo": "Respuestas basadas en un índice Chroma desactualizado respecto de los documentos del corpus",
+      "evidencia": [
+        {"ruta": "src/rag/indexador.py", "detalle": "planificar_indexacion detecta nuevos y huérfanos, pero solo si se ejecuta"},
+        {"ruta": "src/indexar_corpus.py", "detalle": "--plan y --podar-huerfanos son manuales"},
+        {"ruta": "src/rag/preflight.py", "detalle": "comprobar_indice verifica existencia y conteo, no la frescura frente al corpus"}
+      ],
+      "probabilidad": 3,
+      "justificacion_probabilidad": "Los documentos del repositorio cambian en casi cada bloque y nada dispara la reindexación ni avisa en el momento de consultar.",
+      "impacto": 3,
+      "justificacion_impacto": "La respuesta puede citar una versión antigua de un documento: la cita existe pero el contenido ya no es el vigente.",
+      "mitigacion_existente": "Reindexación incremental con IDs deterministas y poda de huérfanos (Bloques 24-25), probada en test_rag_indexacion y test_rag_consolidacion.",
+      "limitaciones": "Depende de que alguien ejecute --plan; no hay comprobación de frescura en la consulta.",
+      "supervision": {"control": "Revisión humana del resultado de --plan antes de reconstruir o podar un índice", "estado": "documentado_pendiente", "evidencia": "--plan documentado en docs/README-bloque26.md y docs/plan-rag-bloques24-26.md; no hay aprobación registrada."},
+      "estado_control": "implementado_probado",
+      "bloques": [24, 25, 26]
+    },
+    {
+      "id": "R05",
+      "riesgo": "Consulta con un modelo o dimensión de embeddings distinto del usado al indexar",
+      "evidencia": [
+        {"ruta": "src/rag/indexador.py", "detalle": "validar_metadata_coleccion lanza EmbeddingsIncompatiblesError"},
+        {"ruta": "src/rag/recuperador.py", "detalle": "_consultar traduce el error de dimensión de Chroma"},
+        {"ruta": "tests/test_rag_indexacion.py", "detalle": "Pruebas de EmbeddingsIncompatiblesError"}
+      ],
+      "probabilidad": 2,
+      "justificacion_probabilidad": "El modelo está fijado en configuracion.MODELO_EMBEDDINGS y la colección guarda su metadato; requiere cambiar la configuración a propósito.",
+      "impacto": 2,
+      "justificacion_impacto": "Falla de forma cerrada: la consulta se detiene con un error accionable en vez de devolver resultados incorrectos.",
+      "mitigacion_existente": "Validación de metadatos al cargar el índice, traducción del error de dimensión y preflight.",
+      "limitaciones": "Una colección antigua sin metadato de modelo dependería solo del error de dimensión.",
+      "supervision": {"control": "Revisión antes de reconstruir un índice con otro modelo de embeddings", "estado": "documentado_pendiente", "evidencia": "El mensaje del error indica usar --reconstruir; no hay aprobación registrada."},
+      "estado_control": "implementado_probado",
+      "bloques": [24, 25, 28]
+    },
+    {
+      "id": "R06",
+      "riesgo": "Activación de una nueva versión del prompt sin aprobación humana",
+      "evidencia": [
+        {"ruta": "src/gobernanza/grafo_supervision.py", "detalle": "interrupt() antes de activar; decisión validada con código de confirmación"},
+        {"ruta": "src/gobernanza/registro_prompts.py", "detalle": "registrar() solo admite 'propuesta'; aprobar() exige decisión humana"},
+        {"ruta": "src/rag/seguridad_prompt.py", "detalle": "El texto realmente enviado sigue definido en el código: un commit lo cambia sin pasar por el registro"}
+      ],
+      "probabilidad": 3,
+      "justificacion_probabilidad": "El registro y el grafo impiden activar sin aprobación, pero el prompt efectivo vive en el código: editar seguridad_prompt.py y hacer commit lo cambia sin solicitud (así llegó v2, sin aprobación formal registrada).",
+      "impacto": 4,
+      "justificacion_impacto": "El prompt de sistema define las reglas de seguridad y citación de todas las consultas auditadas.",
+      "mitigacion_existente": "Registro con huellas SHA-256, grafo LangGraph con interrupt y validaciones, e identificación en cada consulta auditada del prompt enviado (prompt_registrado / prompt_es_activa).",
+      "limitaciones": "Sin autenticación de aprobadores; la identificación detecta un cambio no aprobado después de que ocurre, no lo impide.",
+      "supervision": {"control": "Aprobación humana del despliegue de cada versión de prompt (grafo de supervisión)", "estado": "implementado_probado", "evidencia": "tests/test_grafo_supervision.py y tests/test_integracion_gobernanza.py"},
+      "estado_control": "implementado_probado",
+      "bloques": [26, 31, 32]
+    },
+    {
+      "id": "R07",
+      "riesgo": "Pérdida de las solicitudes de aprobación pendientes al reiniciar el proceso",
+      "evidencia": [
+        {"ruta": "src/gobernanza/grafo_supervision.py", "detalle": "Checkpointer por defecto InMemorySaver (no durable)"},
+        {"ruta": "src/gobernanza/almacenamiento_prompts.py", "detalle": "Solicitudes persistidas aparte para detectar huérfanas"}
+      ],
+      "probabilidad": 4,
+      "justificacion_probabilidad": "Los CLI son procesos cortos; con InMemorySaver toda solicitud pendiente se pierde al terminar. langgraph-checkpoint-sqlite no está instalado.",
+      "impacto": 2,
+      "justificacion_impacto": "Falla de forma segura: la propuesta queda en 'propuesta' sin activarse y la solicitud se detecta como huérfana; se pierde trabajo de revisión, no seguridad.",
+      "mitigacion_existente": "Persistencia separada de solicitudes y GestorSupervision.huerfanas(); la propuesta nunca se activa sin decisión.",
+      "limitaciones": "No hay reanudación tras reiniciar; requiere crear una solicitud nueva.",
+      "supervision": {"control": "Checkpointer durable (SQLite) para retomar la misma solicitud con el mismo thread_id", "estado": "propuesto", "evidencia": "pip --dry-run: langgraph-checkpoint-sqlite 3.1.3 instalaría sin conflictos; no se instaló."},
+      "estado_control": "implementado_probado",
+      "bloques": [32]
+    },
+    {
+      "id": "R08",
+      "riesgo": "Falsos positivos del detector que descartan contenido legítimo",
+      "evidencia": [
+        {"ruta": "docs/informe_seguridad_bloque31.md", "detalle": "0 de 83 chunks del corpus y 1 de 1186 párrafos de docs marcados"},
+        {"ruta": "tests/test_rag_seguridad_prompt.py", "detalle": "FALSOS_POSITIVOS_CONOCIDOS"}
+      ],
+      "probabilidad": 2,
+      "justificacion_probabilidad": "Tasa medida baja en el corpus actual, pero documentos que describen prompts o seguridad se marcan (caso real: README-bloque26).",
+      "impacto": 2,
+      "justificacion_impacto": "Se pierde una unidad o el sistema se abstiene; el descarte queda registrado con fuente y patrón.",
+      "mitigacion_existente": "Evento documento_descartado_por_inyeccion con fuente, sección, patrón y huella; abstención en vez de respuesta sin respaldo.",
+      "limitaciones": "No hay lista de excepciones revisada ni forma de liberar una unidad de la cuarentena.",
+      "supervision": {"control": "Revisión humana periódica de la cuarentena para ajustar patrones", "estado": "propuesto", "evidencia": "No implementado."},
+      "estado_control": "implementado_probado",
+      "bloques": [31]
+    }
+  ]
+}
