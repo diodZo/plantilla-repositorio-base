@@ -12,3 +12,6 @@ chromadb==1.5.9
 # Personalización de modelos (Bloques 29-30): importadas directamente; ya instaladas como dependencias de langchain-google-genai
 google-genai==2.34.0
 pydantic==2.14.2
+# Supervisión humana (Bloque 32): importadas directamente; versiones con las que se probó
+langgraph==1.2.19
+langgraph-checkpoint==4.3.1

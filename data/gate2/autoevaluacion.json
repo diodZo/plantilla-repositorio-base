@@ -1,0 +1,38 @@
+{
+  "tipo": "autoevaluacion",
+  "evaluacion_oficial": null,
+  "fecha": "2026-11-23",
+  "nota": "Puntajes 0-100 asignados por el equipo a partir de la evidencia listada. No son la calificación del curso.",
+  "dimensiones": {
+    "pipeline_funcional": {
+      "puntaje": 85,
+      "evidencia": ["src/servicio_rag.py", "tests/test_gate2.py::test_pipeline_sin_excepciones", "src/ensayo_gate2.py"],
+      "justificacion": "El servicio integrado funciona de punta a punta en modo DEMO (Chroma temporal, filtro, citas, auditoría, consumo) y está probado sin red. El modo REAL existe pero no se ejecutó en el Gate 2; las únicas corridas reales son las del Bloque 28 por la ruta instrumentada heredada."
+    },
+    "recuperacion_citacion": {
+      "puntaje": 85,
+      "evidencia": ["docs/resultados_evaluacion_bloque27.md", "tests/test_gate2.py::test_respuesta_cita_fuente"],
+      "justificacion": "Bloque 27 (12 casos, índice real): markdown expandido k=3 con Recall 0.950, Precision 0.417, F1 0.560, Hit 1.000. El servicio rechaza respuestas con citas inexistentes o sin citas. Muestra pequeña y etiquetada por el desarrollador."
+    },
+    "costo_latencia": {
+      "puntaje": 80,
+      "evidencia": ["docs/resultados_bloque28.md", "docs/README-bloque28.md"],
+      "justificacion": "5 consultas reales con latencia por etapa, tokens reportados y costo estimado con tarifas verificadas; comparación k=3 vs k=6 en un caso. n=5 no es representativo y el costo no es el importe facturado."
+    },
+    "personalizacion": {
+      "puntaje": 75,
+      "evidencia": ["docs/decision_personalizacion.md", "docs/README-bloque29.md", "docs/README-bloque30.md"],
+      "justificacion": "Dataset propio validado (35 ejemplos), método de decisión con pesos oficiales y criterios verificados/no verificados, recomendación Prompt + Pydantic y PEFT como evolución. La línea base no se midió con respuestas reales y no se entrenó ningún modelo (correctamente)."
+    },
+    "observabilidad": {
+      "puntaje": 90,
+      "evidencia": ["src/rag/auditoria.py", "src/rag/logging_json.py", "tests/test_gate2.py::test_logs_sin_contenido_crudo"],
+      "justificacion": "JSONL estructurado con trace_id por consulta, eventos de recuperación, filtrado, prompt versionado, generación/abstención y consumo real o simulado identificado; sin pregunta, documentos, prompt ni credenciales."
+    },
+    "seguridad_gobernanza": {
+      "puntaje": 75,
+      "evidencia": ["docs/informe_seguridad_bloque31.md", "docs/matriz_riesgos_bloque32.md", "tests/test_gate2.py::test_supervision_pausa_y_reanuda"],
+      "justificacion": "Filtro tras expansión, roles y delimitadores, abstención, versionado y LangGraph con interrupt. Brechas: rutas heredadas sin defensas (R03), detector léxico evadible, cuarentena que no deriva a revisión, sin autenticación de aprobadores ni checkpointer durable."
+    }
+  }
+}

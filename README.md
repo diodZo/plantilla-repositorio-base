@@ -181,3 +181,34 @@ python -m src.evaluar_recuperacion --indice markdown --expandir --conjunto valid
 ```
 
 Las consultas no recalculan embeddings de documentos: solo una `embed_query` por pregunta, y una generación si no se usa `--sin-generar`. Las pruebas de `tests/test_rag_*.py` usan embeddings simulados y no consumen cuota.
+
+## Servicio RAG integrado (Gate 2)
+
+**Objetivo.** Responder preguntas sobre la documentación del proyecto con fuentes citadas, de forma auditable y con defensas contra la inyección de prompt, integrando las Unidades 2.5 (RAG), 2.6 (personalización) y 2.7 (gobernanza). Detalle completo en [docs/README-gate2.md](docs/README-gate2.md); evidencias en [docs/entrega-gate2.md](docs/entrega-gate2.md).
+
+**Arquitectura** (`src/servicio_rag.py` reutiliza los Bloques 24–32; no es una implementación paralela):
+
+```text
+consulta → trace_id → índice Chroma persistente → 1 embed_query → búsqueda → expansión small-to-big
+→ filtro de inyección (unidades finales) → citas [1..n] reconstruidas → prompt system/human versionado
+→ generación → validación de citas o abstención → respuesta JSON + auditoría JSONL + consumo
+```
+
+**Requisitos e instalación.** Python 3.10+ (verificado con 3.13.5) y `python -m pip install -r requirements.txt`. El modo demo **no necesita `.env`** ni clave de API.
+
+| Tarea | Comando (PowerShell) |
+|---|---|
+| Verificar el entorno (sin llamar a Gemini) | `.\.venv\Scripts\python.exe -m src.preflight_gate2` |
+| Consulta en modo DEMO (predeterminado, simulado) | `.\.venv\Scripts\python.exe -m src.servicio_rag` |
+| Ensayo funcional completo (11 comprobaciones) | `.\.venv\Scripts\python.exe -m src.ensayo_gate2` |
+| Autoevaluación con la rúbrica | `.\.venv\Scripts\python.exe -m src.rubrica_gate2` |
+| Indexar el corpus real (incremental; usa Gemini) | `.\.venv\Scripts\python.exe -m src.indexar_corpus --bloque 24 --estrategia markdown --coleccion corpus_proyecto_bloque24_md` |
+| Consulta REAL (optativa, posible costo; preflight previo) | `.\.venv\Scripts\python.exe -m src.servicio_rag --real --pregunta "¿...?"` |
+| Pruebas (sin red) | `.\.venv\Scripts\python.exe -m pytest tests/ -v` |
+
+- **Modo DEMO:** corpus sintético, índice Chroma en un directorio temporal, embeddings y modelo simulados; las respuestas empiezan con `[SIMULADO]` y los tokens se marcan como `simulada`.
+- **Modo REAL:** usa el índice existente (`vectorstore/`, ignorado por Git) sin reindexarlo. **No se ejecutó durante el Gate 2.**
+- **Seguridad:** roles reales, contexto delimitado como no confiable, cuarentena de unidades con patrones de inyección después de la expansión, abstención si no queda contexto confiable y rechazo de respuestas con citas inexistentes o sin citas. No es una protección total: ver [docs/informe_seguridad_bloque31.md](docs/informe_seguridad_bloque31.md).
+- **Observabilidad:** `logs/rag_auditoria.jsonl` (ignorado por Git) con un `trace_id` por consulta, tiempos, tokens, versión de prompt y estado final. No guarda preguntas, documentos, prompts ni credenciales.
+- **Supervisión humana:** LangGraph con `interrupt` antes de activar una versión de prompt (`python -m src.grafo_supervision`). Sin autenticación de aprobadores; checkpointer en memoria.
+- **Rutas heredadas no recomendadas:** `generador.responder`, `src.recuperar_corpus`, `src.registro_rag` y `src.evaluar_bloque27` omiten el filtro y la auditoría; se conservan por compatibilidad.
