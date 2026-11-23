@@ -1,5 +1,8 @@
 """Bloque 26: recuperación semántica sobre la documentación del proyecto y respuesta con citas.
 
+RUTA HEREDADA (no recomendada desde el Gate 2): no aplica el filtro de inyección, la auditoría JSONL
+ni la identificación del prompt. Para generar respuestas usa `python -m src.servicio_rag`.
+
 Configuración predeterminada (consolidada tras la optimización del escenario B):
   índice por secciones Markdown (corpus_proyecto_bloque24_md) + búsqueda vectorial
   + expansión de cada chunk a su sección (small-to-big).

@@ -157,7 +157,8 @@ def generar(modelo, prompt) -> str:
 def responder(almacen, modelo, pregunta: str, k: int = K_POR_DEFECTO, modo: str = "vectorial",
               expandir: bool = False, candidatos: int = CANDIDATOS_POR_DEFECTO,
               max_contexto: int | None = None) -> RespuestaRAG:
-    """API de biblioteca. Sus valores por defecto conservan el comportamiento original
+    """RUTA HEREDADA (no recomendada desde el Gate 2): sin filtro de inyección ni auditoría; usa
+    `src.servicio_rag.ServicioRAG`. API de biblioteca. Sus valores por defecto conservan el comportamiento original
     (vectorial, sin expansión, sin límite); la CLI usa sus propios valores predeterminados."""
     incluidos, omitidos, contexto, citas = preparar_contexto(
         almacen, pregunta, k, modo, expandir, candidatos, max_contexto)

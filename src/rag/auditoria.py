@@ -87,6 +87,7 @@ class RespuestaAuditada:
     tiempos: dict = field(default_factory=dict)
     prompt_mensajes: list = field(default_factory=list)  # Solo en memoria: nunca se escribe en el log.
     prompt: dict | None = None  # Identificación de la versión del prompt enviado (Bloque 32).
+    textos_citas: dict = field(default_factory=dict)  # {n: texto de la unidad [n]}; solo en memoria (Gate 2).
 
 
 def descripcion_unidad(unidad: UnidadDescartada) -> dict:
@@ -237,7 +238,9 @@ def consultar_auditado(
                         registrar_evento(logger, "citas_invalidas", logging.WARNING,
                                          citas_invalidas=metricas["citas_invalidas"], citas_disponibles=sorted(citas))
                     resultado = RespuestaAuditada(tid, "ok", texto, citas, descartadas, metricas,
-                                                  prompt_mensajes=mensajes, prompt=prompt_info)
+                                                  prompt_mensajes=mensajes, prompt=prompt_info,
+                                                  textos_citas={n: d.page_content for n, d in
+                                                                enumerate(filtro.permitidos, start=1)})
         except Exception as error:
             registrar_evento(logger, "consulta_fallida", logging.ERROR, etapa=etapa, error_tipo=type(error).__name__,
                              etapas_fallidas=list(medidor.etapas_fallidas),

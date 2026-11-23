@@ -1,5 +1,8 @@
 """Bloque 27: evaluación cuantitativa de la recuperación del RAG.
 
+RUTA HEREDADA para la generación opcional (no recomendada desde el Gate 2): usa el prompt del
+Bloque 26 sin filtro de inyección. La evaluación de recuperación no genera respuestas.
+
 Desde la raíz del repositorio:
   python -m src.evaluar_bloque27 --etiquetar         # una sola vez: deriva IDs de los pasajes y congela (sin API)
   python -m src.evaluar_bloque27                     # evaluación real: 1 embed_query por pregunta e índice

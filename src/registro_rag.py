@@ -1,5 +1,8 @@
 """Bloque 28: consultas RAG instrumentadas (latencia, tokens y costo) con registro JSONL.
 
+RUTA HEREDADA (no recomendada desde el Gate 2): mide latencia y costo, pero no aplica el filtro de
+inyección y su registro guarda la pregunta completa. Para generar respuestas usa `python -m src.servicio_rag`.
+
 Configuración: índice markdown + vectorial + expansión, k=3 (predeterminada de la CLI del Bloque 26).
 
 Desde la raíz del repositorio:
